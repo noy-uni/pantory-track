@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理メニュー - 喫茶店在庫管理</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">  </head>
+<body>
+    <h1>⚙️ システム管理</h1>
+
+    <div class="admin-grid">
+        <div class="admin-card">
+            <h2>📦 商品</h2>
+            <a href="{{ url_for('add_product') }}" class="admin-btn">1. 商品登録</a>
+            <a href="{{ url_for('manage_products') }}" class="admin-btn">2. 商品管理</a>
+        </div>
+
+        <div class="admin-card">
+            <h2>👥 スタッフ</h2>
+            <a href="{{ url_for('add_staff') }}" class="admin-btn">3. スタッフ登録</a>
+            <a href="{{ url_for('manage_staffs') }}" class="admin-btn">4. スタッフ管理</a>
+        </div>
+
+        <div class="admin-card">
+            <h2>📁 カテゴリ</h2>
+            <a href="{{ url_for('add_category') }}" class="admin-btn">5. カテゴリ登録</a>
+            <a href="{{ url_for('manage_categories') }}" class="admin-btn">6. カテゴリ管理</a>
+        </div>
+    </div>
+
+    <a href="{{ url_for('index') }}" class="back-link">← メインメニューに戻る</a>
+</body>
+</html>

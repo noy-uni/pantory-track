@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数量入力 - 喫茶店管理</title>
+    <!-- <style>
+        body { 
+            font-family: sans-serif; 
+            background-color: {{ bg_color }}; 
+            padding: 20px; 
+            color: #333; 
+            text-align: center;
+        }
+        .product-name { font-size: 28px; font-weight: bold; color: #5d4037; margin: 20px 0 5px; }
+        .current-info { font-size: 16px; color: #795548; margin-bottom: 30px; }
+
+        /* 入力エリアのカード */
+        .input-card {
+            background: white;
+            border-radius: 25px;
+            padding: 30px 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* 数量操作エリア */
+        .stepper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* 巨大な＋ーボタン */
+        .step-btn {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: none;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+            transition: active 0.1s;
+        }
+        .step-btn:active { transform: translateY(3px); box-shadow: none; }
+        
+        /* モードによってボタンの色を変えますわ */
+        .btn-minus { background-color: #e57373; }
+        .btn-plus { background-color: #81c784; }
+
+        .qty-display {
+            font-size: 48px;
+            font-weight: bold;
+            width: 100px;
+            border: none;
+            text-align: center;
+            background: transparent;
+        }
+
+        /* 決定ボタン */
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            font-size: 22px;
+            font-weight: bold;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            color: white;
+            background-color: #795548;
+            box-shadow: 0 4px 0 #5d4037;
+        }
+        .submit-btn:active { transform: translateY(3px); box-shadow: none; }
+
+        .back-link { display: block; margin-top: 30px; color: #795548; text-decoration: none; }
+    </style> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+<body>
+
+    <p style="font-size: 18px; margin: 0;">{{ title }}</p>
+    <div class="product-name">{{ product['name'] }}</div>
+    <div class="current-info">現在：{{ product['current_stock'] }}{{ product['unit'] }}</div>
+
+    <div class="input-card">
+        <form action="/{{ mode }}/execute/{{ product['id'] }}" method="POST">
+            <div class="stepper">
+                <button type="button" class="step-btn btn-minus" onclick="changeQty(-1)">－</button>
+                <input type="number" name="quantity" id="qty" class="qty-display" value="1" min="1" step="0.1" readonly>
+                <button type="button" class="step-btn btn-plus" onclick="changeQty(1)">＋</button>
+            </div>
+            
+            <p style="margin-bottom: 20px; font-weight: bold;">
+              {% if mode == 'arrival' %}
+                  入荷する数
+              {% elif mode == 'waste' %}
+                  廃棄する数
+              {% else %}
+                  使い切った数
+              {% endif %}
+              を選んでください
+          </p>
+
+          <button type="submit" class="submit-btn">
+            {% if mode == 'arrival' %}
+                これで入荷する！
+            {% elif mode == 'waste' %}
+                廃棄として記録する
+            {% else %}
+                これで使い切った！
+            {% endif %}
+        </button>
+        </form>
+    </div>
+
+    <a href="javascript:history.back()" class="back-link">← 前の画面に戻る</a>
+
+    <script>
+        // ボタンで数字を増減させるスクリプトですわ
+        function changeQty(diff) {
+            const qtyInput = document.getElementById('qty');
+            let currentVal = parseFloat(qtyInput.value);
+            let newVal = currentVal + diff;
+            if (newVal < 1) newVal = 1; // 1以下にはならないようにしますわ
+            qtyInput.value = newVal.toFixed(1).replace(/\.0$/, ''); // 小数点第一位まで。切りのいい時は整数に
+        }
+    </script>
+</body>
+</html>

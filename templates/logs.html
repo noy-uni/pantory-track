@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>操作履歴 - 喫茶店在庫管理</title>
+  <!-- <style>
+        body { font-size: 20px; padding: 20px; font-family: sans-serif; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+        .type-in { color: green; font-weight: bold; }
+        .type-out { color: orange; font-weight: bold; }
+    </style> -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+  <h1>📋 入出庫の記録</h1>
+  <a href="{{ url_for('index') }}">一覧に戻る</a>
+  <table>
+    <tr>
+      <th>日時</th>
+      <th>商品名</th>
+      <th>種別</th>
+      <th>数量</th>
+      <th>担当者</th>
+    </tr>
+    {% for log in logs %}
+    <tr>
+      <td>{{ log['created_at'] }}</td>
+      <td>{{ log['product_name'] }}</td>
+      <td class="{{ 'type-in' if log['type'] == '入庫' else 'type-out' }}">{{ log['type'] }}</td>
+      <td>{{ log['quantity'] }}</td>
+      <td>{{ log['staff_name'] }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+
+</html>

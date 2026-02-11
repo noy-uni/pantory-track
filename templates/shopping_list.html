@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>お買い物リスト - 喫茶店在庫管理</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="p-shopping">
+
+  <h1 class="p-shopping__title">🛒 お買い物リスト</h1>
+  <p class="p-shopping__lead">マスター、以下の商品の在庫が少なくなっていますわ。</p>
+
+  {% if items %}
+  <div class="p-shopping__list">
+    {% for item in items %}
+    <div class="c-item-card" id="card-{{ item['id'] }}">
+      <label class="c-item-card__row">
+        <input type="checkbox" class="c-item-card__checkbox" data-id="{{ item['id'] }}" data-name="{{ item['name'] }}"
+          data-unit="{{ item['unit'] }}" onclick="toggleItem(this)">
+
+        <div class="c-item-card__content" id="content-{{ item['id'] }}">
+          <div class="c-item-card__name">{{ item['name'] }}</div>
+          <div class="c-item-card__stock-info">
+            あと {{ item['current_stock'] }}{{ item['unit'] }} しかありません
+          </div>
+        </div>
+      </label>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div id="arrival-section" class="c-arrival-section">
+    <form action="{{ url_for('execute_bulk_arrival') }}" method="POST" id="arrival-form">
+      <div id="arrival-list-container" class="c-arrival-section__list-container" style="display: none;">
+        <h2 class="c-arrival-section__title">✨ 入庫する内容の確認</h2>
+        <div id="arrival-container">
+          </div>
+      </div>
+  
+      <button type="button" id="confirm-toggle-btn" class="c-menu-btn c-menu-btn--arrival">
+        まとめて入庫を確認する
+      </button>
+  
+      <button type="submit" id="submit-btn" class="c-menu-btn c-menu-btn--arrival" style="display: none;">
+        この内容で入庫を確定！
+      </button>
+    </form>
+  </div>
+  
+  {% else %}
+  <div class="c-alert"
+    style="background: var(--color-sub-btn); border-color: var(--color-sub-btn-dark); text-align: center; padding: var(--size-48);">
+    <p style="font-size: var(--size-64); margin: 0;">☕</p>
+    <p class="c-alert__title" style="margin-top: var(--size-16);">今すぐ買う必要があるものはありませんわ。</p>
+  </div>
+  {% endif %}
+
+  <div class="c-footer-nav">
+    <a href="{{ url_for('index') }}" class="c-menu-btn c-menu-btn--sub">
+      🔙 在庫一覧に戻る
+    </a>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/shopping_list.js') }}"></script>
+</body>
+
+</html>

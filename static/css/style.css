@@ -1,0 +1,251 @@
+:root {
+  /* サイズ変数 */
+  --u: 0.5rem;
+  --size-8: var(--u);
+  --size-16: calc(var(--u) * 2);
+  --size-24: calc(var(--u) * 3);
+  --size-32: calc(var(--u) * 4);
+  --size-40: calc(var(--u) * 5);
+  --size-48: calc(var(--u) * 6);
+  --size-64: calc(var(--u) * 8);
+
+  /* カラー変数 */
+  --color-bg: #fdfaf5;
+  --color-text-main: #333333;
+  --color-arrival: #ffcc80;
+  --color-arrival-dark: #f57c00;
+  --color-departure: #90caf9;
+  --color-departure-dark: #1976d2;
+  --color-waste: #ef9a9a;
+  --color-waste-dark: #c62828;
+  --color-admin: #bcaaa4;
+  --color-admin-dark: #8d6e63;
+
+  --color-sub-btn: #eceff1;
+  /* 明るく清潔感のあるグレー */
+  --color-sub-btn-dark: #b0bec5;
+  /* 影用の少し濃いグレー */
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  font-size: var(--size-24);
+  padding: var(--size-24);
+  margin: 0;
+  font-family: sans-serif;
+}
+
+/* --- Block: p-dashboard (Page Dashboard) --- */
+.p-dashboard__title {
+  text-align: center;
+  margin-bottom: var(--size-40);
+  font-size: var(--size-40);
+}
+
+/* --- Block: c-alert (Component Alert) --- */
+.c-alert {
+  display: block;
+  background: #fff3cd;
+  border: 4px solid #ffc107;
+  padding: var(--size-24);
+  border-radius: var(--size-16);
+  text-decoration: none;
+  color: #856404;
+  margin-bottom: var(--size-40);
+}
+
+.c-alert__title {
+  font-weight: bold;
+  font-size: var(--size-32);
+}
+
+.c-alert__text {
+  font-size: var(--size-24);
+}
+
+/* --- Block: c-menu-btn (Component Menu Button) --- */
+.c-menu-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--size-16);
+  width: 100%;
+  padding: var(--size-40) 0;
+  margin-bottom: var(--size-32);
+  font-size: var(--size-32);
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: var(--size-24);
+  border: none;
+  color: var(--color-text-main);
+  transition: 0.1s;
+}
+
+.c-menu-btn:active {
+  transform: translateY(var(--size-8));
+  box-shadow: none !important;
+}
+
+.c-menu-btn__emoji {
+  font-size: var(--size-48);
+}
+
+/* Modifier: Colors */
+.c-menu-btn--arrival {
+  background: var(--color-arrival);
+  box-shadow: 0 var(--size-8) 0 var(--color-arrival-dark);
+}
+
+.c-menu-btn--departure {
+  background: var(--color-departure);
+  box-shadow: 0 var(--size-8) 0 var(--color-departure-dark);
+}
+
+.c-menu-btn--waste {
+  background: var(--color-waste);
+  box-shadow: 0 var(--size-8) 0 var(--color-waste-dark);
+}
+
+.c-menu-btn--admin {
+  background: var(--color-admin);
+  box-shadow: 0 var(--size-8) 0 var(--color-admin-dark);
+  font-size: var(--size-24);
+  padding: var(--size-24) 0;
+}
+
+/* --- Block: c-footer-link --- */
+.c-footer-link {
+  display: block;
+  text-align: center;
+  color: #666666;
+  text-decoration: underline;
+  margin-top: var(--size-32);
+}
+
+
+/* --- Block: c-footer-nav --- */
+.c-footer-nav {
+  display: flex;
+  flex-direction: column;
+  /* 押しやすさ重視で、縦に並べますわ */
+  gap: var(--size-24);
+  margin-top: var(--size-48);
+}
+
+/* --- Block: c-menu-btn --- */
+
+/* Modifier: 明るいグレー（お買い物リスト・在庫一覧用） */
+.c-menu-btn--sub {
+  background-color: var(--color-sub-btn);
+  box-shadow: 0 var(--size-8) 0 var(--color-sub-btn-dark);
+  color: var(--color-text-main);
+}
+
+/* Modifier: システム管理用（今のまま、あるいは少し微調整） */
+.c-menu-btn--admin {
+  background: var(--color-admin);
+  box-shadow: 0 var(--size-8) 0 var(--color-admin-dark);
+  /* おじいちゃんが押し間違えないよう、文字サイズは他と合わせても良いですわ */
+  font-size: var(--size-32); 
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+         お買い物リスト 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* --- お買い物リスト ページ専用 (p-shopping) --- */
+
+.c-item-card__row {
+  display: flex;
+  align-items: center; /* 垂直方向の中央揃え */
+  gap: var(--size-24);  /* チェックボックスと名前の間の余白 */
+  cursor: pointer;
+  width: 100%;
+}
+
+/* 内容エリアを横並びの構成に最適化しますわ */
+.c-item-card__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column; /* 名前と「あと○個」は縦に並べます */
+}
+
+/* チェックボックスを巨大化させますわ */
+.c-item-card__checkbox {
+  width: var(--size-48) !important;
+  height: var(--size-48) !important;
+  margin-right: var(--size-24);
+  cursor: pointer;
+}
+
+/* 商品名の文字サイズ */
+.c-item-card__name {
+  font-size: var(--size-32);
+  font-weight: bold;
+  display: block;
+}
+
+/* 「あと○本」の警告テキスト */
+.c-item-card__stock-info {
+  font-size: var(--size-24);
+  color: var(--color-waste-dark);
+  margin-top: var(--size-8);
+}
+
+/* --- 入庫エリア (c-arrival-section) --- */
+.c-arrival-section {
+  display: none; /* 最初は非表示 */
+  margin-top: var(--size-64);
+  /* backgroundやborderはここでは指定しませんわ */
+  border-radius: var(--size-32);
+  transition: background-color 0.3s ease; 
+}
+
+/* 入庫リスト本体：最初は隠しておきますわ */
+.c-arrival-section__list-container {
+  display: none; /* JavaScriptで制御します */
+  margin-bottom: var(--size-32);
+}
+
+.c-arrival-section__title {
+  font-size: var(--size-32);
+  margin-bottom: var(--size-24);
+}
+
+/* Modifier: 確認モード（ボタンが押された後） */
+.c-arrival-section--confirmed {
+  padding: var(--size-32);
+  background-color: var(--color-arrival); /* ここで初めてオレンジ色に！ */
+  border: 4px dashed var(--color-arrival-dark);
+}
+
+/* JSで追加される「入庫する行」 --- */
+.c-arrival-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  padding: var(--size-24);
+  border-radius: var(--size-16);
+  margin-bottom: var(--size-16);
+  box-shadow: 0 var(--size-4) 0 rgba(0,0,0,0.05);
+}
+
+.c-arrival-row__name {
+  font-size: var(--size-24);
+  font-weight: bold;
+}
+
+.c-arrival-row__qty-input {
+  width: var(--size-80);
+  height: var(--size-48);
+  font-size: var(--size-32);
+  text-align: center;
+  border: 2px solid var(--color-border);
+  border-radius: var(--size-8);
+  margin: 0 var(--size-8);
+}
+
+.c-arrival-row__unit {
+  font-size: var(--size-24);
+}

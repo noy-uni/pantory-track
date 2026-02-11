@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>商品登録 - 喫茶店在庫管理</title>
+    <!-- <style>
+        /* マスターに優しい大きな文字設定 */
+        body { font-size: 24px; padding: 20px; font-family: sans-serif; }
+        input, select, button { 
+            font-size: 24px; padding: 10px; margin-bottom: 20px; width: 100%;
+            box-sizing: border-box; 
+        }
+        label { font-weight: bold; }
+        .btn-submit { background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+    </style> -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>新しい商品を登録する</h1>
+    <form method="POST">
+        <label>商品名</label>
+        <input type="text" name="name" placeholder="例：牛乳" required>
+
+        <label>カテゴリ</label>
+        <select name="category_id">
+            {% for cat in categories %}
+            <option value="{{ cat['id'] }}">{{ cat['name'] }}</option>
+            {% endfor %}
+        </select>
+
+        <label>産地（任意）</label>
+        <input type="text" name="origin" placeholder="例：ブラジル">
+
+        <label>現在の在庫量</label>
+        <input type="number" step="0.1" name="current_stock" value="0">
+
+        <label>単位</label>
+        <input type="text" name="unit" placeholder="例：本、kg">
+
+        <label>発注点</label>
+        <input type="number" step="0.1" name="reorder_level" value="1">
+
+        <button type="submit" class="btn-submit">この内容で登録する</button>
+    </form>
+    <hr>
+<a href="{{ url_for('index') }}" style="display: block; text-align: center; color: #666;">
+    一覧に戻る
+</a>
+</body>
+</html>
