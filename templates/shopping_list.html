@@ -5,20 +5,24 @@
 {% block body_class %}p-shopping{% endblock %}
 
 {% block content %}
-  <h1 class="p-shopping__title">🛒 お買い物リスト</h1>
-  <p class="p-shopping__lead">以下の商品の在庫が少なくなっています。</p>
+  <h1 class="p-shopping__title text-2xl font-bold mb-2 text-center">お買い物リスト</h1>
+  <p class="p-shopping__lead text-base text-slate-600 mb-6 text-center">
+    以下の商品の在庫が少なくなっています。
+  </p>
 
   {% if items %}
-  <div class="p-shopping__list">
+  <div class="p-shopping__list space-y-4 w-full">
     {% for item in items %}
-    <div class="c-item-card" id="card-{{ item['id'] }}">
-      <label class="c-item-card__row">
-        <input type="checkbox" class="c-item-card__checkbox" data-id="{{ item['id'] }}" data-name="{{ item['name'] }}"
+    <div class="c-item-card bg-white rounded-2xl shadow-sm" id="card-{{ item['id'] }}">
+      <label class="c-item-card__row flex items-center gap-6 cursor-pointer w-full px-4 py-3">
+        <input type="checkbox"
+          class="c-item-card__checkbox w-10 h-10 mr-4 cursor-pointer accent-emerald-500"
+          data-id="{{ item['id'] }}" data-name="{{ item['name'] }}"
           data-unit="{{ item['unit'] }}" onclick="toggleItem(this)">
 
-        <div class="c-item-card__content" id="content-{{ item['id'] }}">
-          <div class="c-item-card__name">{{ item['name'] }}</div>
-          <div class="c-item-card__stock-info">
+        <div class="c-item-card__content flex-1 flex flex-col" id="content-{{ item['id'] }}">
+          <div class="c-item-card__name text-xl font-bold">{{ item['name'] }}</div>
+          <div class="c-item-card__stock-info text-sm text-rose-700 mt-1">
             あと {{ item['current_stock'] }}{{ item['unit'] }} しかありません
           </div>
         </div>
@@ -30,31 +34,34 @@
   <div id="arrival-section" class="c-arrival-section">
     <form action="{{ url_for('execute_bulk_arrival') }}" method="POST" id="arrival-form">
       <div id="arrival-list-container" class="c-arrival-section__list-container" style="display: none;">
-        <h2 class="c-arrival-section__title">✨ 入庫する内容の確認</h2>
+        <h2 class="c-arrival-section__title text-2xl font-bold mb-4">✨ 入庫する内容の確認</h2>
         <div id="arrival-container">
           </div>
       </div>
   
-      <button type="button" id="confirm-toggle-btn" class="c-menu-btn c-menu-btn--arrival">
+      <button type="button" id="confirm-toggle-btn"
+              class="c-menu-btn c-menu-btn--arrival flex items-center justify-center w-full py-4 mb-4 text-xl font-bold rounded-3xl bg-orange-200 text-slate-900 shadow-md active:translate-y-1 active:shadow-none transition">
         まとめて入庫を確認する
       </button>
   
-      <button type="submit" id="submit-btn" class="c-menu-btn c-menu-btn--arrival" style="display: none;">
+      <button type="submit" id="submit-btn"
+              class="c-menu-btn c-menu-btn--arrival flex items-center justify-center w-full py-4 mb-4 text-xl font-bold rounded-3xl bg-orange-200 text-slate-900 shadow-md active:translate-y-1 active:shadow-none transition"
+              style="display: none;">
         この内容で入庫を確定！
       </button>
     </form>
   </div>
   
   {% else %}
-  <div class="c-alert"
-    style="background: var(--color-sub-btn); border-color: var(--color-sub-btn-dark); text-align: center; padding: var(--size-48);">
-    <p style="font-size: var(--size-64); margin: 0;">☕</p>
-    <p class="c-alert__title" style="margin-top: var(--size-16);">今すぐ買う必要があるものはありません。</p>
+  <div class="c-alert bg-slate-100 border-4 border-slate-300 text-center px-8 py-10 rounded-2xl">
+    <p class="text-5xl mb-4">☕</p>
+    <p class="c-alert__title text-2xl font-bold">今すぐ買う必要があるものはありません。</p>
   </div>
   {% endif %}
 
-  <div class="c-footer-nav">
-    <a href="{{ url_for('index') }}" class="c-menu-btn c-menu-btn--sub">
+  <div class="c-footer-nav w-full flex flex-col gap-4 mt-8">
+    <a href="{{ url_for('index') }}"
+       class="c-menu-btn c-menu-btn--sub flex items-center justify-center gap-3 w-full py-4 text-xl font-bold rounded-2xl bg-slate-100 text-slate-900 shadow-sm active:translate-y-1 active:shadow-none transition">
       トップページに戻る
     </a>
   </div>

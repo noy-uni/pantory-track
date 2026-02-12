@@ -38,7 +38,6 @@ body {
   font-size: var(--size-24);
   padding: var(--size-24);
   margin: 0;
-  font-family: 'BIZ UDGothic', sans-serif;
 }
 
 .l-header {
@@ -64,7 +63,7 @@ body {
 
   .l-main {
     width: 100%;
-    max-width: 480px;
+    max-width: 640px;
     margin-inline: auto;
     margin-top: var(--size-64);
     display: flex;

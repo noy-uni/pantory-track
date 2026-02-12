@@ -4,28 +4,116 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %} すなばCafe 在庫管理{% endblock %}</title>
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&display=swap" rel="stylesheet">
 
+  <!-- Tailwind CSS (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- 共通コンポーネント用のカスタムクラス（Tailwind @apply） -->
+  <style type="text/tailwindcss">
+    @layer components {
+      /* 汎用ボタン（ベース） */
+      .btn {
+        @apply flex items-center justify-center gap-3 w-full font-bold rounded-2xl shadow-sm active:translate-y-1 active:shadow-none transition;
+      }
+      .btn-lg {
+        @apply py-4 text-2xl;
+      }
+      .btn-xl {
+        @apply py-6 text-3xl;
+      }
+
+      /* 色バリエーション */
+      .btn-sub {
+        @apply bg-slate-100 text-slate-900;
+      }
+      .btn-arrival {
+        @apply bg-orange-200 text-slate-900 shadow-md;
+      }
+      .btn-departure {
+        @apply bg-sky-200 text-slate-900 shadow-md;
+      }
+      .btn-waste {
+        @apply bg-rose-200 text-slate-900 shadow-md;
+      }
+      .btn-admin {
+        @apply bg-stone-400 text-slate-900 shadow-md;
+      }
+
+      /* よく使う組み合わせ（1クラスで完結） */
+      .btn-nav-arrival {
+        @apply btn btn-xl btn-arrival mb-2 rounded-3xl;
+      }
+      .btn-nav-departure {
+        @apply btn btn-xl btn-departure mb-2 rounded-3xl;
+      }
+      .btn-nav-waste {
+        @apply btn btn-xl btn-waste mb-2 rounded-3xl;
+      }
+
+      .btn-footer-sub {
+        @apply btn btn-lg btn-sub;
+      }
+      .btn-footer-admin {
+        @apply btn btn-lg btn-admin;
+      }
+
+      .btn-arrival-confirm {
+        @apply btn btn-lg btn-arrival rounded-3xl mb-4;
+      }
+
+      .btn-primary {
+        @apply w-full rounded-2xl bg-amber-600 text-white font-bold py-3 text-xl shadow-md active:translate-y-0.5 active:shadow-none transition;
+      }
+      .btn-success {
+        @apply w-full rounded-2xl bg-emerald-600 text-white font-bold py-3 text-lg shadow-md active:translate-y-0.5 active:shadow-none transition;
+      }
+      .btn-danger {
+        @apply w-full rounded-2xl bg-rose-600 text-white font-bold py-3 text-base shadow-md active:translate-y-0.5 active:shadow-none transition;
+      }
+
+      /* カード */
+      .card {
+        @apply bg-white rounded-2xl shadow-sm;
+      }
+      .card-alert-main {
+        @apply block bg-amber-100 border-4 border-amber-400 text-amber-800 rounded-2xl px-6 py-4 mb-10 no-underline shadow-sm;
+      }
+
+      /* バッジ */
+      .badge {
+        @apply inline-block rounded-full bg-slate-100 text-slate-600 text-sm px-3 py-1;
+      }
+    }
+  </style>
+
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
-<body style="background-color: {{ bg_color | default('#fdfaf5') }};">
+<body
+  class="min-h-screen bg-amber-50 text-slate-800 text-2xl font-sans"
+  style="background-color: {{ bg_color | default('#fdfaf5') }}; font-family: 'BIZ UDGothic', system-ui, sans-serif;"
+>
 
-  <header class="l-header">
-    <div>
-      <div>
-        <!-- <a href="{{ url_for('index') }}"> {% include 'icons/icon_logo.html' %}</a> -->
-        すなばCafe 在庫管理 {% block header_title %}{% endblock %}
-      </div>
+  <header
+    class="fixed inset-x-0 top-0 h-16 bg-amber-900 text-amber-50 shadow-md z-50 flex items-center"
+  >
+    <div class="w-full max-w-md mx-auto px-4">
+      <!-- <a href="{{ url_for('index') }}"> {% include 'icons/icon_logo.html' %}</a> -->
+      <span class="font-bold tracking-tight">すなばCafe 在庫管理</span>
+      <span class="ml-2 text-lg align-middle">{% block header_title %}{% endblock %}</span>
     </div>
   </header>
 
-  <main class="l-main">
+  <main class="w-full max-w-md mx-auto mt-24 px-4 flex flex-col items-center">
     {% block content %}{% endblock %}
   </main>
+
+  {# 各ページ固有のJavaScriptを差し込むためのブロック #}
+  {% block scripts %}{% endblock %}
 
 </body>
 </html>

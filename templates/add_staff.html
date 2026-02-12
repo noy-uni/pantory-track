@@ -3,17 +3,27 @@
 {% block title %}スタッフ登録 - 喫茶店在庫管理{% endblock %}
 
 {% block content %}
-  <h1>新しいスタッフを登録する</h1>
-  <form method="POST">
-    <p>スタッフのお名前</p>
-    <input type="text" name="name" placeholder="例：Nozomi" required>
+  <h1 class="text-3xl font-bold mb-6 text-center">新しいスタッフを登録する</h1>
+
+  <form method="POST" class="w-full space-y-4">
+    <div>
+      <p class="font-semibold mb-1">スタッフのお名前</p>
+      <input type="text" name="name" placeholder="例：Nozomi" required
+             class="mt-1 block w-full rounded-2xl border border-slate-300 px-4 py-2 text-xl focus:outline-none focus:ring-2 focus:ring-amber-500">
+    </div>
     
-    <p>役割（ロール）</p>
-    <select name="role" style="width: 80%; padding: 10px; margin-bottom: 20px; border-radius: 10px;">
+    <div>
+      <p class="font-semibold mb-1">役割（ロール）</p>
+      <select name="role"
+              class="mt-1 block w-full rounded-2xl border border-slate-300 px-4 py-2 text-xl bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
         <option value="staff">スタッフ</option>
         <option value="admin">マスター（管理者）</option>
-    </select>
+      </select>
+    </div>
     
-    <button type="submit" class="btn-save">この人を登録する</button>
+    <button type="submit"
+            class="btn-save mt-6 w-full rounded-2xl bg-amber-600 text-white font-bold py-3 text-xl shadow-md active:translate-y-0.5 active:shadow-none transition">
+      この人を登録する
+    </button>
   </form>
 {% endblock %}
