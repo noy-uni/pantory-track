@@ -366,12 +366,12 @@
       @apply bg-yellow-300 text-slate-800 px-4 py-3 my-3 mx-auto rounded-xl font-bold max-w-[90%] shadow-md border-l-8 border-yellow-500;
     }
     
-    /* ✅ 成功メッセージ用カード（追加） */
+    /*  成功メッセージ用カード（追加） */
     .card-alert-success {
       @apply bg-emerald-100 text-emerald-800 px-4 py-3 my-3 mx-auto rounded-xl font-bold max-w-[90%] shadow-md border-l-8 border-emerald-500;
     }
     
-    /* ❌ エラーメッセージ用カード（追加） */
+    /* エラーメッセージ用カード（追加） */
     .card-alert-error {
       @apply bg-rose-100 text-rose-800 px-4 py-3 my-3 mx-auto rounded-xl font-bold max-w-[90%] shadow-md border-l-8 border-rose-500;
     }
@@ -446,7 +446,7 @@
 
   <main class="w-full max-w-xl mx-auto mt-24 px-4 pb-8 flex flex-col items-center">
     
-    <!-- ✅ フラッシュメッセージを main 内に移動 -->
+    <!--  フラッシュメッセージを main 内に移動 -->
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
       <div class="w-full mb-6">

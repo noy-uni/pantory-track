@@ -52,7 +52,7 @@ def index():
         )
         
     except sqlite3.Error as e:
-        flash(f"❌ データベースエラー: {str(e)}", "error")
+        flash(f"データベースエラー: {str(e)}", "error")
         return render_template("index.html", products=[], low_stock_count=0)
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -79,11 +79,11 @@ def add_product():
                     (name, category_id, origin, current_stock, unit, reorder_level)
                 )
 
-            flash(f'✅ {name} を登録しました！', 'success')
+            flash(f' {name} を登録しました！', 'success')
             return redirect(url_for("manage_products"))
         
         except sqlite3.Error as e:
-            flash(f'❌ 登録に失敗しました: {str(e)}', 'error')
+            flash(f'登録に失敗しました: {str(e)}', 'error')
             return redirect(url_for("add_product"))
 
     # GETリクエスト時
@@ -91,7 +91,7 @@ def add_product():
         with get_db_connection() as conn:
             categories = conn.execute("SELECT * FROM categories").fetchall()
     except sqlite3.Error as e:
-        flash(f'❌ エラー: {str(e)}', 'error')
+        flash(f'エラー: {str(e)}', 'error')
         categories = []
     
     return render_template("add_product.html", categories=categories)
@@ -113,10 +113,10 @@ def reduce_stock(product_id):
                 (product_id, 1, "出庫", 1.0),
             )
         
-        flash("✅ 在庫を1つ減らしました", "success")
+        flash(" 在庫を1つ減らしました", "success")
         
     except sqlite3.Error as e:
-        flash(f"❌ エラー: {str(e)}", "error")
+        flash(f"エラー: {str(e)}", "error")
     
     return redirect(url_for("index"))
 
@@ -138,10 +138,10 @@ def add_stock(product_id):
                 (product_id, 1, "入庫", 1.0),
             )
         
-        flash("✅ 在庫を1つ追加しました", "success")
+        flash(" 在庫を1つ追加しました", "success")
         
     except sqlite3.Error as e:
-        flash(f"❌ エラー: {str(e)}", "error")
+        flash(f"エラー: {str(e)}", "error")
     
     return redirect(url_for("index"))
 
@@ -166,7 +166,7 @@ def waste_select():
         )
         
     except sqlite3.Error as e:
-        flash(f"❌ データベースエラー: {str(e)}", "error")
+        flash(f"データベースエラー: {str(e)}", "error")
         return render_template(
             "choose_product.html",
             products=[],
@@ -189,13 +189,13 @@ def edit_product(product_id):
             categories = conn.execute("SELECT * FROM categories").fetchall()
 
         if not product:
-            flash("❌ 商品が見つかりませんでした", "error")
+            flash("商品が見つかりませんでした", "error")
             return redirect(url_for("manage_products"))
 
         return render_template("edit_product.html", product=product, categories=categories)
         
     except sqlite3.Error as e:
-        flash(f"❌ データベースエラー: {str(e)}", "error")
+        flash(f"データベースエラー: {str(e)}", "error")
         return redirect(url_for("manage_products"))
 
 @app.route("/update_product/<int:product_id>", methods=["POST"])
@@ -230,10 +230,10 @@ def update_product(product_id):
                 (product_id, 1, log_details, 0),
             )
 
-        flash(f"✅ {name} を更新しました", "success")
+        flash(f" {name} を更新しました", "success")
         
     except sqlite3.Error as e:
-        flash(f"❌ エラー: {str(e)}", "error")
+        flash(f"エラー: {str(e)}", "error")
     
     return redirect(url_for("index"))
 
@@ -251,10 +251,10 @@ def delete_product(product_id):
                 (product_id, 1, "商品削除", 0),
             )
 
-        flash("✅ 商品を削除しました", "success")
+        flash(" 商品を削除しました", "success")
         
     except sqlite3.Error as e:
-        flash(f"❌ エラー: {str(e)}", "error")
+        flash(f"エラー: {str(e)}", "error")
     
     return redirect(url_for("index"))
 
@@ -275,7 +275,7 @@ def shopping_list():
         return render_template("shopping_list.html", items=items)
         
     except sqlite3.Error as e:
-        flash(f"❌ データベースエラー: {str(e)}", "error")
+        flash(f"データベースエラー: {str(e)}", "error")
         return render_template("shopping_list.html", items=[])
 
     # ログ
@@ -297,7 +297,7 @@ def view_logs():
         return render_template("logs.html", logs=logs)
         
     except sqlite3.Error as e:
-        flash(f"❌ データベースエラー: {str(e)}", "error")
+        flash(f"データベースエラー: {str(e)}", "error")
         return render_template("logs.html", logs=[])
 
 
@@ -319,7 +319,7 @@ def arrival_select():
         )
         
     except sqlite3.Error as e:
-        flash(f"❌ データベースエラー: {str(e)}", "error")
+        flash(f"データベースエラー: {str(e)}", "error")
         return render_template(
             "choose_product.html",
             products=[],
@@ -347,7 +347,7 @@ def departure_select():
         )
         
     except sqlite3.Error as e:
-        flash(f"❌ データベースエラー: {str(e)}", "error")
+        flash(f"データベースエラー: {str(e)}", "error")
         return render_template(
             "choose_product.html",
             products=[],
@@ -367,7 +367,7 @@ def entry_quantity(mode, product_id):
             ).fetchone()
 
         if not product:
-            flash("❌ 商品が見つかりませんでした", "error")
+            flash("商品が見つかりませんでした", "error")
             return redirect(url_for(f"{mode}_select"))
 
         if mode == "arrival":
@@ -389,7 +389,7 @@ def entry_quantity(mode, product_id):
         )
         
     except sqlite3.Error as e:
-        flash(f"❌ データベースエラー: {str(e)}", "error")
+        flash(f"データベースエラー: {str(e)}", "error")
         return redirect(url_for(f"{mode}_select"))
 
 
@@ -407,7 +407,7 @@ def execute_stock_update(mode, product_id):
             ).fetchone()
 
             if not product:
-                flash("❌ 商品が見つかりませんでした", "error")
+                flash("商品が見つかりませんでした", "error")
                 return redirect(url_for(f"{mode}_select"))
 
             # 在庫を計算
@@ -448,13 +448,13 @@ def execute_stock_update(mode, product_id):
                 (product_id, current_staff_id, log_type, quantity),
             )
             
-            # ✅ with文を抜けるときに自動commit
+            #  with文を抜けるときに自動commit
 
-        flash(f"✅ {product['name']} を {quantity} 個 {log_type} しました！", "success")
+        flash(f" {product['name']} を {quantity} 個 {log_type} しました！", "success")
         return redirect(url_for(f"{mode}_select"))
         
     except sqlite3.Error as e:
-        flash(f"❌ データベースエラー: {str(e)}", "error")
+        flash(f"データベースエラー: {str(e)}", "error")
         return redirect(url_for(f"{mode}_select"))
 
 
@@ -506,10 +506,10 @@ def execute_bulk_arrival():
                                 (product_id, current_staff_id, "一括入庫", quantity),
                             )
 
-        flash("✅ 一括入庫が完了しました", "success")
+        flash(" 一括入庫が完了しました", "success")
         
     except sqlite3.Error as e:
-        flash(f"❌ エラー: {str(e)}", "error")
+        flash(f"エラー: {str(e)}", "error")
 
     # 終わったら「在庫一覧」へ戻って、更新された数字を見せてあげましょう！
     return redirect(url_for("index"))
@@ -524,7 +524,7 @@ def stock_list():
         return render_template("stock_list.html", products=products)
         
     except sqlite3.Error as e:
-        flash(f"❌ データベースエラー: {str(e)}", "error")
+        flash(f"データベースエラー: {str(e)}", "error")
         return render_template("stock_list.html", products=[])
 
 @app.route("/admin")
@@ -550,7 +550,7 @@ def manage_products():
         return render_template("manage_products.html", products=products)
         
     except sqlite3.Error as e:
-        flash(f"❌ データベースエラー: {str(e)}", "error")
+        flash(f"データベースエラー: {str(e)}", "error")
         return render_template("manage_products.html", products=[])
 
 
@@ -565,11 +565,11 @@ def add_staff():
             with get_db_connection() as conn:
                 conn.execute("INSERT INTO staffs (name, role) VALUES (?, ?)", (name, role))
             
-            flash(f'✅ {name} さんを登録しました！', 'success')
+            flash(f' {name} さんを登録しました！', 'success')
             return redirect(url_for("admin_menu"))
             
         except sqlite3.Error as e:
-            flash(f'❌ 登録に失敗しました: {str(e)}', 'error')
+            flash(f'登録に失敗しました: {str(e)}', 'error')
             return redirect(url_for("add_staff"))
 
     return render_template("add_staff.html")
