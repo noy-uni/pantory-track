@@ -1,71 +1,85 @@
 {% extends "base.html" %}
 
-{% block title %}お買い物リスト - 喫茶店在庫管理{% endblock %}
+{% block title %}お買い物リスト - すなばCafe 在庫管理{% endblock %}
 
-{% block body_class %}p-shopping{% endblock %}
+{% block header_title %}🛒 お買い物リスト{% endblock %}
 
 {% block content %}
-  <h1 class="p-shopping__title text-2xl font-bold mb-2 text-center">お買い物リスト</h1>
-  <p class="p-shopping__lead text-base text-slate-600 mb-6 text-center">
-    以下の商品の在庫が少なくなっています。
-  </p>
+  <div class="content-wrapper">
+    <div class="text-center mb-8">
+      <h1 class="text-3xl font-bold text-slate-800 mb-3">お買い物リスト</h1>
+      <p class="text-lg text-slate-600">
+        以下の商品の在庫が少なくなっています。
+      </p>
+    </div>
 
-  {% if items %}
-  <div class="p-shopping__list space-y-4 w-full">
-    {% for item in items %}
-    <div class="c-item-card bg-white rounded-2xl shadow-sm" id="card-{{ item['id'] }}">
-      <label class="c-item-card__row flex items-center gap-6 cursor-pointer w-full px-4 py-3">
-        <input type="checkbox"
-          class="c-item-card__checkbox w-10 h-10 mr-4 cursor-pointer accent-emerald-500"
-          data-id="{{ item['id'] }}" data-name="{{ item['name'] }}"
-          data-unit="{{ item['unit'] }}" onclick="toggleItem(this)">
+    {% if items %}
+    <!-- 商品リスト -->
+    <div class="space-y-4 mb-8">
+      {% for item in items %}
+      <div class="card p-4" id="card-{{ item['id'] }}">
+        <label class="flex items-center gap-4 cursor-pointer">
+          <input type="checkbox"
+            class="shopping-checkbox"
+            data-id="{{ item['id'] }}" 
+            data-name="{{ item['name'] }}"
+            data-unit="{{ item['unit'] }}" 
+            onchange="toggleItem(this)">
 
-        <div class="c-item-card__content flex-1 flex flex-col" id="content-{{ item['id'] }}">
-          <div class="c-item-card__name text-xl font-bold">{{ item['name'] }}</div>
-          <div class="c-item-card__stock-info text-sm text-rose-700 mt-1">
-            あと {{ item['current_stock'] }}{{ item['unit'] }} しかありません
+          <div class="flex-1">
+            <div class="text-xl font-bold text-slate-800">{{ item['name'] }}</div>
+            <div class="text-sm text-rose-700 mt-1 font-medium">
+              あと {{ item['current_stock'] }}{{ item['unit'] }} しかありません
+            </div>
+          </div>
+        </label>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- 入庫確認セクション -->
+    <div id="arrival-section" class="hidden">
+      <form action="{{ url_for('execute_bulk_arrival') }}" method="POST" id="arrival-form">
+        
+        <!-- 確認ボタン（最初だけ表示） -->
+        <button type="button" id="confirm-toggle-btn"
+                class="btn-arrival-confirm">
+          このまま入庫登録する
+        </button>
+
+        <!-- 入庫リスト（確認後に表示） -->
+        <div id="arrival-list-container" class="hidden arrival-list-card">
+          <h2 class="text-2xl font-bold text-center mb-6 text-slate-800">
+            いくつ入庫しますか？
+          </h2>
+          <div id="arrival-container" class="space-y-4">
+            <!-- JavaScriptで動的に生成 -->
           </div>
         </div>
-      </label>
+    
+        <!-- 確定ボタン（確認後に表示） -->
+        <button type="submit" id="submit-btn"
+                class="btn-commit hidden">
+          この内容で入庫を確定する
+        </button>
+      </form>
     </div>
-    {% endfor %}
-  </div>
+    
+    {% else %}
+    <!-- 商品がない場合 -->
+    <div class="bg-slate-100 border-4 border-slate-300 text-center px-8 py-10 rounded-2xl">
+      <p class="text-5xl mb-4">☕</p>
+      <p class="text-2xl font-bold text-slate-800">今すぐ買う必要があるものはありません。</p>
+    </div>
+    {% endif %}
 
-  <div id="arrival-section" class="c-arrival-section">
-    <form action="{{ url_for('execute_bulk_arrival') }}" method="POST" id="arrival-form">
-      <div id="arrival-list-container" class="c-arrival-section__list-container" style="display: none;">
-        <h2 class="c-arrival-section__title text-2xl font-bold mb-4">✨ 入庫する内容の確認</h2>
-        <div id="arrival-container">
-          </div>
-      </div>
-  
-      <button type="button" id="confirm-toggle-btn"
-              class="c-menu-btn c-menu-btn--arrival flex items-center justify-center w-full py-4 mb-4 text-xl font-bold rounded-3xl bg-orange-200 text-slate-900 shadow-md active:translate-y-1 active:shadow-none transition">
-        まとめて入庫を確認する
-      </button>
-  
-      <button type="submit" id="submit-btn"
-              class="c-menu-btn c-menu-btn--arrival flex items-center justify-center w-full py-4 mb-4 text-xl font-bold rounded-3xl bg-orange-200 text-slate-900 shadow-md active:translate-y-1 active:shadow-none transition"
-              style="display: none;">
-        この内容で入庫を確定！
-      </button>
-    </form>
+    <!-- フッターナビゲーション -->
+    <div class="mt-8">
+      <a href="{{ url_for('index') }}" class="btn-footer-sub">
+        トップページに戻る
+      </a>
+    </div>
   </div>
-  
-  {% else %}
-  <div class="c-alert bg-slate-100 border-4 border-slate-300 text-center px-8 py-10 rounded-2xl">
-    <p class="text-5xl mb-4">☕</p>
-    <p class="c-alert__title text-2xl font-bold">今すぐ買う必要があるものはありません。</p>
-  </div>
-  {% endif %}
-
-  <div class="c-footer-nav w-full flex flex-col gap-4 mt-8">
-    <a href="{{ url_for('index') }}"
-       class="c-menu-btn c-menu-btn--sub flex items-center justify-center gap-3 w-full py-4 text-xl font-bold rounded-2xl bg-slate-100 text-slate-900 shadow-sm active:translate-y-1 active:shadow-none transition">
-      トップページに戻る
-    </a>
-  </div>
-  
 {% endblock %}
 
 {% block scripts %}

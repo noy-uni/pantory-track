@@ -427,7 +427,97 @@
     .stock-status--danger {
       @apply bg-rose-100 text-rose-800;
     }
+
+    /* ========================================
+   お買い物リスト専用スタイル
+   ======================================== */
+
+    /* チェックボックス（大きめ・エメラルドグリーン） */
+    .shopping-checkbox {
+      @apply w-8 h-8 cursor-pointer flex-shrink-0;
+    }
+
+    /* チェック済みカードのスタイル（エメラルドグリーン） */
+    .card.is-checked {
+      @apply bg-gray-200;
+    }
+
+    .card.is-checked .text-xl {
+      @apply line-through text-slate-500;
+    }
+
+    .card.is-checked .text-sm {
+      @apply line-through text-slate-400;
+    }
+    /* 入庫リストカード */
+    .arrival-list-card {
+      @apply bg-white rounded-2xl shadow-md p-6 mb-6 border-2 border-orange-300;
+    }
+
+/* 入庫アイテム行 */
+.arrival-row {
+  @apply flex flex-col gap-3 p-4 bg-orange-50 rounded-xl border-2 border-orange-200;
+}
+
+.arrival-row__name {
+  @apply font-bold text-lg text-slate-800 text-center;
+}
+
+.arrival-row__stepper {
+  @apply flex items-center justify-center gap-4;
+}
+
+/* ステッパーボタン（既存のスタイルを流用） */
+.arrival-row__btn {
+  @apply w-14 h-14 flex items-center justify-center rounded-full bg-slate-100 text-2xl font-bold border-2 border-slate-300 active:translate-y-0.5 active:shadow-inner transition cursor-pointer select-none;
+}
+
+.arrival-row__btn:hover {
+  @apply bg-slate-200;
+}
+
+/* 数量表示 */
+.arrival-row__qty {
+  @apply w-24 text-center text-3xl font-bold border-2 border-slate-300 rounded-xl py-2 bg-white;
+}
+
+.arrival-row__unit {
+  @apply text-lg text-slate-600 font-medium;
+}
+
+/* 隠しフィールド（実際のフォーム送信用） */
+.arrival-row__hidden-input {
+  @apply hidden;
+}
+
+/* セクション表示時のアニメーション */
+#arrival-section {
+  @apply transition-all duration-300;
+}
+
+#arrival-section.is-visible {
+  @apply block;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 640px) {
+  .shopping-checkbox {
+    @apply w-6 h-6;
+  }
+
+  .arrival-row__btn {
+    @apply w-12 h-12 text-xl;
+  }
+
+  .arrival-row__qty {
+    @apply w-20 text-2xl;
+  }
+
+      .arrival-row__unit {
+        @apply text-base;
       }
+}
+    }
   </style>
 
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
