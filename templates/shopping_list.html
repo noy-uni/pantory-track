@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html lang="ja">
+{% extends "base.html" %}
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>お買い物リスト - 喫茶店在庫管理</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
+{% block title %}お買い物リスト - 喫茶店在庫管理{% endblock %}
 
-<body class="p-shopping">
+{% block body_class %}p-shopping{% endblock %}
 
+{% block content %}
   <h1 class="p-shopping__title">🛒 お買い物リスト</h1>
   <p class="p-shopping__lead">マスター、以下の商品の在庫が少なくなっていますわ。</p>
 
@@ -63,8 +58,9 @@
       🔙 在庫一覧に戻る
     </a>
   </div>
+{% endblock %}
 
+{% block scripts %}
+  {{ super() }}
   <script src="{{ url_for('static', filename='js/shopping_list.js') }}"></script>
-</body>
-
-</html>
+{% endblock %}

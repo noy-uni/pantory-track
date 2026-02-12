@@ -1,34 +1,32 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>喫茶店在庫管理</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body class="p-dashboard">
+{% extends "base.html" %}
+
+{% block title %}ホーム - 喫茶店在庫管理{% endblock %}
+{% block header_title %}ホーム{% endblock %}
+
+{% block content %}
 
     <h1 class="p-dashboard__title">喫茶店 在庫管理</h1>
 
     {% if low_stock_count > 0 %}
     <a href="{{ url_for('shopping_list') }}" class="c-alert">
         <div class="c-alert__title">🛒 お買い物があります</div>
-        <div class="c-alert__text">{{ low_stock_count }}件の在庫が足りませんわ</div>
+        <div class="c-alert__text">{{ low_stock_count }}件の在庫が足りません</div>
     </a>
     {% endif %}
 
     <nav class="p-dashboard__nav">
-        <a href="{{ url_for('arrival_select') }}" class="c-menu-btn c-menu-btn--arrival">
-            <span class="c-menu-btn__emoji">✨</span> 買ってきた
-        </a>
-
-        <a href="{{ url_for('departure_select') }}" class="c-menu-btn c-menu-btn--departure">
-            <span class="c-menu-btn__emoji">☕</span> 使い切った
-        </a>
-
-        <a href="{{ url_for('waste_select') }}" class="c-menu-btn c-menu-btn--waste">
-            <span class="c-menu-btn__emoji">🥀</span> 廃棄した
-        </a>
-    </nav>
+      <a href="{{ url_for('arrival_select') }}" class="c-menu-btn c-menu-btn--arrival">
+          {% include 'icons/icon_shopping-cart.html' %} 買ってきた
+      </a>
+  
+      <a href="{{ url_for('departure_select') }}" class="c-menu-btn c-menu-btn--departure">
+          {% include 'icons/icon_empty-box.html' %} 使い切った
+      </a>
+  
+      <a href="{{ url_for('waste_select') }}" class="c-menu-btn c-menu-btn--waste">
+          {% include 'icons/icon_trash-can.html' %} 廃棄した
+      </a>
+  </nav>
 
     <div class="c-footer-nav">
         <a href="{{ url_for('shopping_list') }}" class="c-menu-btn c-menu-btn--sub">
@@ -42,5 +40,4 @@
         </a>
     </div>
 
-</body>
-</html>
+    {% endblock %}

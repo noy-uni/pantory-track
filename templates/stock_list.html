@@ -1,28 +1,10 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>在庫一覧 - 喫茶店在庫管理</title>
-    <!-- <style>
-        body { font-size: 24px; padding: 20px; font-family: sans-serif; background-color: #f9f9f9; }
-        h1 { color: #5d4037; }
-        
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; background-color: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        th, td { border: 1px solid #eee; padding: 20px; text-align: left; }
-        th { background-color: #795548; color: white; }
-        
-        /* 状態別の背景色 */
-        .stock-out { background-color: #ffebee; } /* 在庫ゼロ（赤系） */
-        .stock-low { background-color: #fffde7; }  /* 在庫少（黄系） */
-        
-        .alert-text { color: #d32f2f; font-weight: bold; font-size: 0.8em; display: block; margin-top: 5px; }
-        .edit-link { color: #007bff; text-decoration: underline; font-size: 0.7em; }
-        .back-link { display: inline-block; margin-top: 30px; font-size: 20px; color: #795548; text-decoration: none; }
-    </style> -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  </head>
-<body>
+{% extends "base.html" %}
 
+{% block title %}在庫一覧 - 喫茶店在庫管理{% endblock %}
+
+{% block body_class %}p-stock{% endblock %}
+
+{% block content %}
     <h1>📦 現在の在庫状況</h1>
     
     <div style="margin-bottom: 20px;">
@@ -40,7 +22,6 @@
             {% for p in products %}
             {% set is_out = p['current_stock'] <= 0 %}
             {% set is_low = p['current_stock'] <= p['reorder_level'] %}
-            
             <tr class="{{ 'stock-out' if is_out else ('stock-low' if is_low else '') }}">
                 <td>
                     <strong>{{ p['name'] }}</strong>
@@ -50,7 +31,6 @@
                 </td>
                 <td>
                     <span style="font-size: 1.4em; font-weight: bold;">{{ p['current_stock'] }}</span> {{ p['unit'] }}
-                    
                     {% if is_out %}
                         <span class="alert-text">🚫 在庫切れですわ！</span>
                     {% elif is_low %}
@@ -65,5 +45,4 @@
     <p style="margin-top: 30px; font-size: 18px; color: #888;">
         ※作業（入庫や出庫）をする場合は、メニュー画面から各ボタンを選んでくださいね。
     </p>
-</body>
-</html>
+{% endblock %}

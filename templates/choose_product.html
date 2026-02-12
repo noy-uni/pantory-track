@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="ja">
+{% extends "base.html" %}
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ title }} - 喫茶店管理</title>
+{% block title %}{{ title }} - 喫茶店管理{% endblock %}
+
+{% block head %}
   <!-- <style>
         body { 
             font-family: sans-serif; 
@@ -94,22 +92,22 @@
             border-radius: 15px;
             font-weight: bold;
         }
-    </style> -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
+    </style> 
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> -->
+{% endblock %}
 
-<body>
+{% block content %}
 
   <h1>{{ title }}</h1>
 
   {% with messages = get_flashed_messages() %}
   {% if messages %}
-  {% for message in messages %}
-  <div
-    style="background-color: #ffeb3b; color: #333; padding: 15px; margin: 10px auto; border-radius: 10px; font-weight: bold; max-width: 90%; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 8px solid #fbc02d;">
-    ⚠️ {{ message }}
-  </div>
-  {% endfor %}
+    {% for message in messages %}
+    <div
+      style="background-color: #ffeb3b; color: #333; padding: 15px; margin: 10px auto; border-radius: 10px; font-weight: bold; max-width: 90%; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 8px solid #fbc02d;">
+      ⚠️ {{ message }}
+    </div>
+    {% endfor %}
   {% endif %}
   {% endwith %}
 
@@ -142,6 +140,4 @@
 
   <a href="{{ url_for('index') }}" class="back-link">やめる（戻る）</a>
 
-</body>
-
-</html>
+{% endblock %}

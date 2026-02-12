@@ -10,9 +10,12 @@
   --size-64: calc(var(--u) * 8);
 
   /* カラー変数 */
-  --color-bg: #fdfaf5;
+  --color-bg: #fdfaf5;;
+  /* --color-bg: #fdfaf5; */
   --color-text-main: #333333;
-  --color-arrival: #ffcc80;
+  --color-text-WH: #FFFFFF;
+  --color-arrival: #fbdcb2;
+  /* --color-arrival: #ffcc80; */
   --color-arrival-dark: #f57c00;
   --color-departure: #90caf9;
   --color-departure-dark: #1976d2;
@@ -24,6 +27,8 @@
   --color-sub-btn: #eceff1;
   /* 明るく清潔感のあるグレー */
   --color-sub-btn-dark: #b0bec5;
+
+
   /* 影用の少し濃いグレー */
 }
 
@@ -33,8 +38,47 @@ body {
   font-size: var(--size-24);
   padding: var(--size-24);
   margin: 0;
-  font-family: sans-serif;
+  font-family: 'BIZ UDGothic', sans-serif;
 }
+
+.l-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--size-32);
+  background-color: var(--color-admin-dark, #5d4037);
+  color: var(--color-text-WH);
+  padding: 1rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  z-index: 999;
+}
+
+.l-header svg {
+      width: 50px;  /* ここで大きさを調整してください */
+      height: auto;
+      display: inline-block;
+      vertical-align: middle;
+  }
+
+
+  .l-main {
+    width: 100%;
+    max-width: 400px;
+    margin-inline: auto;
+    margin-top: var(--size-64);
+    display: flex;
+    flex-direction: column; /* 縦に並べる */
+    align-items: center;    /* 左右の中央に寄せる */
+  }
+
+
+/* ボタンを包んでいる「箱」たちも幅いっぱいに広がるようにしますわ */
+.p-dashboard__nav, 
+.c-footer-nav, 
+.c-alert {
+  width: 100%;           /* これで「400pxいっぱい」になりますわよ！ */
+}  
 
 /* --- Block: p-dashboard (Page Dashboard) --- */
 .p-dashboard__title {
@@ -42,6 +86,14 @@ body {
   margin-bottom: var(--size-40);
   font-size: var(--size-40);
 }
+
+.c-menu-btn svg {
+  width: auto;
+  height: var(--size-48); /* 絵文字と同じくらいのサイズ感に調整します */
+  flex-shrink: 0;       /* ボタンが狭くなってもアイコンが潰れないようにします */
+}
+
+
 
 /* --- Block: c-alert (Component Alert) --- */
 .c-alert {
@@ -69,7 +121,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--size-16);
+  gap: var(--size-24);
   width: 100%;
   padding: var(--size-40) 0;
   margin-bottom: var(--size-32);

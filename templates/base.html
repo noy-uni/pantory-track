@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %} すなばCafe 在庫管理{% endblock %}</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body style="background-color: {{ bg_color | default('#fdfaf5') }};">
+
+  <header class="l-header">
+    <div>
+      <div>
+        <!-- <a href="{{ url_for('index') }}"> {% include 'icons/icon_logo.html' %}</a> -->
+        すなばCafe 在庫管理 {% block header_title %}{% endblock %}
+      </div>
+    </div>
+  </header>
+
+  <main class="l-main">
+    {% block content %}{% endblock %}
+  </main>
+
+</body>
+</html>

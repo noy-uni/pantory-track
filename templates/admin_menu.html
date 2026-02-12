@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>管理メニュー - 喫茶店在庫管理</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">  </head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}管理メニュー - 喫茶店在庫管理{% endblock %}
+
+{% block content %}
     <h1>⚙️ システム管理</h1>
 
     <div class="admin-grid">
@@ -29,5 +26,4 @@
     </div>
 
     <a href="{{ url_for('index') }}" class="back-link">← メインメニューに戻る</a>
-</body>
-</html>
+{% endblock %}
