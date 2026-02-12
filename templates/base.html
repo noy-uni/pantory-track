@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +18,7 @@
     @layer components {
       /* 汎用ボタン（ベース） */
       .btn {
-        @apply flex items-center justify-center gap-3 w-full font-bold rounded-2xl shadow-sm active:translate-y-1 active:shadow-none transition;
+        @apply flex items-center justify-center gap-3 w-full font-bold rounded-2xl shadow-sm active:translate-y-1 active:shadow-none transition border-b-4 border-b-slate-400 active:border-b-2;
       }
       .btn-lg {
         @apply py-4 text-2xl;
@@ -25,24 +26,24 @@
       .btn-xl {
         @apply py-6 text-3xl;
       }
-
+  
       /* 色バリエーション */
       .btn-sub {
-        @apply bg-slate-100 text-slate-900;
+        @apply bg-slate-100 text-slate-900 border-b-slate-300;
       }
       .btn-arrival {
-        @apply bg-orange-200 text-slate-900 shadow-md;
+        @apply bg-orange-200 text-slate-900 shadow-md border-b-orange-400;
       }
       .btn-departure {
-        @apply bg-sky-200 text-slate-900 shadow-md;
+        @apply bg-sky-200 text-slate-900 shadow-md border-b-sky-400;
       }
       .btn-waste {
-        @apply bg-rose-200 text-slate-900 shadow-md;
+        @apply bg-rose-200 text-slate-900 shadow-md border-b-rose-400;
       }
       .btn-admin {
-        @apply bg-stone-400 text-slate-900 shadow-md;
+        @apply bg-stone-400 text-slate-900 shadow-md border-b-stone-600;
       }
-
+  
       /* よく使う組み合わせ（1クラスで完結） */
       .btn-nav-arrival {
         @apply btn btn-xl btn-arrival mb-2 rounded-3xl;
@@ -53,28 +54,28 @@
       .btn-nav-waste {
         @apply btn btn-xl btn-waste mb-2 rounded-3xl;
       }
-
+  
       .btn-footer-sub {
         @apply btn btn-lg btn-sub;
       }
       .btn-footer-admin {
         @apply btn btn-lg btn-admin;
       }
-
+  
       .btn-arrival-confirm {
         @apply btn btn-lg btn-arrival rounded-3xl mb-4;
       }
-
+  
       .btn-primary {
-        @apply w-full rounded-2xl bg-amber-600 text-white font-bold py-3 text-xl shadow-md active:translate-y-0.5 active:shadow-none transition;
+        @apply w-full rounded-2xl bg-amber-600 text-white font-bold py-3 text-xl shadow-md active:translate-y-0.5 active:shadow-none transition border-b-4 border-b-amber-800 active:border-b-2;
       }
       .btn-success {
-        @apply w-full rounded-2xl bg-emerald-600 text-white font-bold py-3 text-lg shadow-md active:translate-y-0.5 active:shadow-none transition;
+        @apply w-full rounded-2xl bg-emerald-600 text-white font-bold py-3 text-lg shadow-md active:translate-y-0.5 active:shadow-none transition border-b-4 border-b-emerald-800 active:border-b-2;
       }
       .btn-danger {
-        @apply w-full rounded-2xl bg-rose-600 text-white font-bold py-3 text-base shadow-md active:translate-y-0.5 active:shadow-none transition;
+        @apply w-full rounded-2xl bg-rose-600 text-white font-bold py-3 text-base shadow-md active:translate-y-0.5 active:shadow-none transition border-b-4 border-b-rose-800 active:border-b-2;
       }
-
+  
       /* カード */
       .card {
         @apply bg-white rounded-2xl shadow-sm;
@@ -82,33 +83,383 @@
       .card-alert-main {
         @apply block bg-amber-100 border-4 border-amber-400 text-amber-800 rounded-2xl px-6 py-4 mb-10 no-underline shadow-sm;
       }
-
+  
       /* バッジ */
       .badge {
         @apply inline-block rounded-full bg-slate-100 text-slate-600 text-sm px-3 py-1;
       }
+      
+      
+      /* フラッシュメッセージ用カード */
+      .card-alert-flash {
+        @apply bg-yellow-300 text-slate-800 px-4 py-3 my-3 mx-auto rounded-xl font-bold max-w-[90%] shadow-md border-l-8 border-yellow-500;
+      }
+  
+      /* 商品カード */
+      .product-card {
+        @apply block bg-white border-2 border-slate-200 rounded-2xl p-4 text-center text-slate-800 shadow-sm transition active:scale-95 active:brightness-90 flex flex-col items-center space-y-2 border-b-4 border-b-slate-300;
+      }
+      /* 商品カードのアイコン部分 */
+      .product-card__icon {
+        @apply w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center text-3xl mb-3 shadow-inner;
+      }
+  
+      /* 商品画像 */
+      .product-card__img {
+        @apply w-full h-full object-cover rounded-full;
+      }
+      
+      /* 商品カードの絵文字 */
+      .product-card__emoji {
+        @apply text-3xl;
+      }
+
+      /* アイコン用：ボタン内のSVG */
+      .btn svg {
+        @apply w-auto h-12 flex-shrink-0;
+      }
+      
+      /* アイコン用：特大ボタン内のSVG */
+      .btn-xl svg {
+        @apply h-12;
+      }
+
+      /* アイコン用：大ボタン内のSVG */
+      .btn-lg svg {
+        @apply h-10;
+      }
+
+      /* ヘッダー内のSVG */
+      .l-header svg {
+        @apply w-[50px] h-auto inline-block align-middle;
+      }
+
+      /* シェフ吹き出しエリア */
+      .p-chef-message {
+        @apply flex items-end justify-center gap-4 mb-6;
+      }
+
+      /* 入力フィールド共通 */
+      .input-field {
+        @apply mt-1 block w-full rounded-2xl border-2 border-slate-300 px-4 py-3 text-xl bg-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition;
+      }
+      
+      /* ラベル共通 */
+      .form-label {
+        @apply block font-semibold mb-1 text-lg text-slate-800;
+      }
+
+      /* 確定ボタン（緑） */
+      .btn-commit {
+        @apply w-full rounded-2xl bg-emerald-600 text-white font-bold py-3 text-xl shadow-md active:translate-y-0.5 active:shadow-none transition border-b-4 border-b-emerald-800 active:border-b-2;
+      }
+
+      /* コンテンツラッパー（幅を統一） */
+      .content-wrapper {
+        @apply w-full max-w-3xl mx-auto space-y-6;
+      }
+      /* 入力カード（フォーム背景） */
+      .input-card {
+        @apply bg-white rounded-2xl shadow-md p-8 space-y-6;
+            }
+      
+      /* ページヘッダー基本 */
+      .page-header {
+        @apply p-6 rounded-2xl shadow-sm text-center;
+      }
+
+      /* 入庫モード（オレンジ系） */
+      .page-header--arrival {
+        @apply bg-orange-200;
+      }
+
+      /* 出庫モード（ブルー系） */
+      .page-header--departure {
+        @apply bg-blue-100;
+      }
+
+      /* 廃棄モード（レッド系） */
+      .page-header--waste {
+        @apply bg-red-100;
+      }
+
+
+      /* 入庫モードのタイトル色 */
+      .page-header--arrival .page-header__mode {
+        @apply text-orange-700;
+      }
+
+      /* 出庫モードのタイトル色 */
+      .page-header--departure .page-header__mode {
+        @apply text-blue-700;
+      }
+
+      /* 廃棄モードのタイトル色 */
+      .page-header--waste .page-header__mode {
+        @apply text-red-700;
+      }
+
+
+      .page-header__mode {
+        @apply text-lg font-medium mb-3;
+      }
+        /* 商品名 */
+      .page-header__product {
+        @apply text-4xl font-black text-slate-800 my-5 tracking-wide;
+      }
+
+      /* 新規追加：原産地表示 */
+      .page-header__origin {
+        @apply text-lg text-slate-500 mb-4 font-normal;
+      }
+
+      /* 在庫表示 */
+      .page-header__stock {
+        @apply text-xl text-slate-600 bg-white/70 inline-block px-6 py-2 rounded-full mx-auto shadow-sm;
+      }
+
+
+      /* ステッパーボタン（シンプル版） */
+      .btn-stepper {
+        @apply w-16 h-16 flex items-center justify-center rounded-full bg-slate-100 text-3xl font-bold border-2 border-slate-300 hover:bg-slate-200 active:translate-y-0.5 active:shadow-inner transition;    }
+    
+      /* 数量表示フィールド（シンプル版） */
+      .qty-display {
+        @apply w-28 text-center text-4xl border-2 border-slate-300 rounded-xl py-3 mx-2 bg-white focus:outline-none focus:ring-2 focus:ring-amber-500;
+      }
+    
+      /* ステッパーコンテナ */
+      .stepper {
+        @apply flex items-center justify-center gap-4 mb-8;
+      }
+    
+      /* 説明文 */
+      .stepper-label {
+        @apply text-center text-xl text-slate-700 mb-6 font-medium;
+      }
+/* ========================================
+       商品名 + origin の横並びレイアウト
+       ======================================== */
+       .product-name-wrapper {
+      @apply flex items-baseline gap-2 flex-wrap;
     }
+    
+    .product-name-wrapper .product-name {
+      @apply font-bold text-lg leading-tight text-slate-800;
+    }
+    
+    .product-name-wrapper .product-origin {
+      @apply text-sm text-slate-500 font-normal;
+    }
+    
+/* 大きいサイズの商品カード */
+    .product-card--large {
+      @apply p-8 min-h-[220px];
+    }
+    
+    .product-card__icon--large {
+      @apply w-28 h-28 text-5xl mb-5;
+    }
+    
+    .product-card--large .product-name {
+      @apply text-2xl;
+    }
+    
+    .product-card--large .product-origin {
+      @apply text-base;
+    }
+    
+    .product-card--large .badge {
+      @apply text-lg px-5 py-2;
+    }
+
+    /* 大きいサイズの商品カード */
+    .product-card--large {
+      @apply p-8 min-h-[220px];
+    }
+    
+    .product-card__icon--large {
+      @apply w-28 h-28 text-5xl mb-5;
+    }
+    
+    .product-card--large .product-name {
+      @apply text-2xl;
+    }
+    
+    .product-card--large .product-origin {
+      @apply text-base;
+    }
+    
+    .product-card--large .badge {
+      @apply text-lg px-5 py-2;
+    }
+  
+  /* 中サイズの商品カード（2列用） */
+.product-card--medium {
+  @apply p-5 min-h-[180px];
+}
+
+.product-card__icon--medium {
+  @apply w-20 h-20 text-4xl mb-3;
+}
+
+.product-card--medium .product-name {
+  @apply text-base;
+}
+
+.product-card--medium .product-origin {
+  @apply text-xs;
+}
+
+.product-card--medium .badge {
+  @apply text-xs px-3 py-1;
+}
+
+/* レスポンシブ：小さい画面では少し小さく */
+@media (max-width: 400px) {
+  .product-card--medium {
+    @apply p-4 min-h-[160px];
+  }
+  
+  .product-card__icon--medium {
+    @apply w-16 h-16 text-3xl;
+  }
+  
+  .product-card--medium .product-name {
+    @apply text-sm;
+  }
+
+    }
+
+        /* ========================================
+       管理メニュー専用スタイル
+       ======================================== */
+    
+    /* 管理メニュー項目 */
+    .admin-menu-item {
+      @apply flex items-center gap-4 w-full rounded-2xl border-2 border-slate-200 bg-slate-50 px-5 py-4 text-slate-800 shadow-sm transition active:scale-95 active:bg-slate-100 border-b-4 border-b-slate-300 active:border-b-2;
+    }
+    
+    /* 番号部分 */
+    .admin-menu-item__number {
+      @apply flex items-center justify-center w-10 h-10 rounded-full bg-slate-200 text-slate-700 font-bold text-lg flex-shrink-0;
+    }
+    
+    /* テキスト部分 */
+    .admin-menu-item__text {
+      @apply text-lg font-bold text-slate-800;
+    }
+    
+    /* ホバー効果（デスクトップ用） */
+    @media (hover: hover) {
+      .admin-menu-item:hover {
+        @apply bg-slate-100 border-slate-300;
+      }
+      
+      .admin-menu-item:hover .admin-menu-item__number {
+        @apply bg-amber-200;
+      }
+    }
+
+    /* フラッシュメッセージ用カード（警告） */
+    .card-alert-flash {
+      @apply bg-yellow-300 text-slate-800 px-4 py-3 my-3 mx-auto rounded-xl font-bold max-w-[90%] shadow-md border-l-8 border-yellow-500;
+    }
+    
+    /* ✅ 成功メッセージ用カード（追加） */
+    .card-alert-success {
+      @apply bg-emerald-100 text-emerald-800 px-4 py-3 my-3 mx-auto rounded-xl font-bold max-w-[90%] shadow-md border-l-8 border-emerald-500;
+    }
+    
+    /* ❌ エラーメッセージ用カード（追加） */
+    .card-alert-error {
+      @apply bg-rose-100 text-rose-800 px-4 py-3 my-3 mx-auto rounded-xl font-bold max-w-[90%] shadow-md border-l-8 border-rose-500;
+    }
+
+/* 編集ボタン */
+.btn-edit {
+      @apply inline-flex items-center justify-center w-full rounded-2xl bg-amber-500 text-white px-4 py-2.5 text-base font-bold shadow-md active:translate-y-1 active:shadow-sm transition;
+    }
+    
+    /* 削除ボタン */
+    .btn-delete {
+      @apply inline-flex items-center justify-center w-full rounded-2xl bg-rose-500 text-white px-4 py-2.5 text-base font-bold shadow-md active:translate-y-1 active:shadow-sm transition;
+    }
+    
+    /* バッジ（カテゴリラベル） */
+    .badge {
+      @apply inline-block rounded-full bg-amber-100 text-amber-800 text-xs font-semibold px-3 py-1;
+    }
+    
+    /* テーブルの行ホバー効果 */
+    .table-row-hover {
+      @apply hover:bg-amber-50 transition;
+    }
+
+    /* 在庫カード（通常） */
+    .stock-card {
+      @apply bg-white border-2 border-slate-200 rounded-2xl p-5 shadow-sm;
+    }
+    
+    /* 在庫カード（警告） */
+    .stock-card--warning {
+      @apply bg-amber-50 border-amber-300;
+    }
+    
+    /* 在庫カード（危険） */
+    .stock-card--danger {
+      @apply bg-rose-50 border-rose-300;
+    }
+    
+    /* 在庫ステータスバッジ */
+    .stock-status {
+      @apply inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-bold;
+    }
+    
+    .stock-status--ok {
+      @apply bg-green-100 text-green-800;
+    }
+    
+    .stock-status--warning {
+      @apply bg-amber-100 text-amber-800;
+    }
+    
+    .stock-status--danger {
+      @apply bg-rose-100 text-rose-800;
+    }
+      }
   </style>
 
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
-<body
-  class="min-h-screen bg-amber-50 text-slate-800 text-2xl font-sans"
-  style="background-color: {{ bg_color | default('#fdfaf5') }}; font-family: 'BIZ UDGothic', system-ui, sans-serif;"
->
+<body class="min-h-screen bg-amber-50 text-slate-800 text-2xl font-sans"
+  style="background-color: {{ bg_color | default('#fdfaf5') }}; font-family: 'BIZ UDGothic', system-ui, sans-serif;">
 
-  <header
-    class="fixed inset-x-0 top-0 h-16 bg-amber-900 text-amber-50 shadow-md z-50 flex items-center"
-  >
-    <div class="w-full max-w-md mx-auto px-4">
+  <header class="fixed inset-x-0 top-0 h-16 bg-amber-900 text-amber-50 shadow-md z-50 flex items-center">
+    <div class="w-full max-w-xl mx-auto px-4">
       <!-- <a href="{{ url_for('index') }}"> {% include 'icons/icon_logo.html' %}</a> -->
       <span class="font-bold tracking-tight">すなばCafe 在庫管理</span>
       <span class="ml-2 text-lg align-middle">{% block header_title %}{% endblock %}</span>
     </div>
   </header>
 
-  <main class="w-full max-w-md mx-auto mt-24 px-4 flex flex-col items-center">
+  <main class="w-full max-w-xl mx-auto mt-24 px-4 pb-8 flex flex-col items-center">
+    
+    <!-- ✅ フラッシュメッセージを main 内に移動 -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="w-full mb-6">
+        {% for category, message in messages %}
+        <div class="card-alert-{{ category }}">
+          {{ message }}
+        </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% endwith %}
+
+    <!-- ページコンテンツ -->
     {% block content %}{% endblock %}
   </main>
 
@@ -116,4 +467,5 @@
   {% block scripts %}{% endblock %}
 
 </body>
+
 </html>

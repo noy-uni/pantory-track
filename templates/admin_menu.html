@@ -3,58 +3,82 @@
 {% block title %}管理メニュー - 喫茶店在庫管理{% endblock %}
 
 {% block content %}
-<h1 class="text-2xl font-bold mb-4">⚙️ システム管理</h1>
 
-<div class="admin-grid grid grid-cols-1 gap-4 w-full mt-2">
-  <div class="admin-card bg-white rounded-2xl shadow-sm p-4 space-y-3">
-    <h2 class="text-lg font-bold">📦 商品</h2>
-    <a href="{{ url_for('add_product') }}"
-       class="admin-btn block w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-left text-slate-800 hover:bg-slate-100 text-base">
-      1. 商品登録
+<!-- ページタイトル -->
+<div class="p-chef-message flex items-end justify-center gap-4 mb-6">
+  <div class="p-chef-message__icon">
+    <span class="text-5xl">⚙️</span>
+  </div>
+  <div class="p-chef-message__bubble relative bg-white border-4 border-amber-900 rounded-2xl px-5 py-3 shadow-md">
+    <h1 class="text-3xl font-bold text-amber-900">システムの登録や管理を行いますか？</h1>
+  </div>
+</div>
+
+<!-- 管理メニューグリッド -->
+<div class="admin-grid grid grid-cols-1 gap-6 w-full mt-6">
+  
+  <!-- 商品管理 -->
+  <div class="card p-6 space-y-3">
+    <h2 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+      <span class="text-2xl">📦</span> 商品管理
+    </h2>
+    <a href="{{ url_for('add_product') }}" class="admin-menu-item">
+      <span class="admin-menu-item__number">1</span>
+      <span class="admin-menu-item__text">商品登録</span>
     </a>
-    <a href="{{ url_for('manage_products') }}"
-       class="admin-btn block w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-left text-slate-800 hover:bg-slate-100 text-base">
-      2. 商品管理
+    <a href="{{ url_for('manage_products') }}" class="admin-menu-item">
+      <span class="admin-menu-item__number">2</span>
+      <span class="admin-menu-item__text">商品管理</span>
     </a>
   </div>
 
-  <div class="admin-card bg-white rounded-2xl shadow-sm p-4 space-y-3">
-    <h2 class="text-lg font-bold">👥 スタッフ</h2>
-    <a href="{{ url_for('add_staff') }}"
-       class="admin-btn block w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-left text-slate-800 hover:bg-slate-100 text-base">
-      3. スタッフ登録
+  <!-- スタッフ管理 -->
+  <div class="card p-6 space-y-3">
+    <h2 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+      <span class="text-2xl">👥</span> スタッフ管理
+    </h2>
+    <a href="{{ url_for('add_staff') }}" class="admin-menu-item">
+      <span class="admin-menu-item__number">1</span>
+      <span class="admin-menu-item__text">スタッフ登録</span>
     </a>
-    <a href="{{ url_for('manage_staffs') }}"
-       class="admin-btn block w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-left text-slate-800 hover:bg-slate-100 text-base">
-      4. スタッフ管理
-    </a>
-  </div>
-
-  <div class="admin-card bg-white rounded-2xl shadow-sm p-4 space-y-3">
-    <h2 class="text-lg font-bold">📁 カテゴリ</h2>
-    <a href="{{ url_for('add_category') }}"
-       class="admin-btn block w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-left text-slate-800 hover:bg-slate-100 text-base">
-      5. カテゴリ登録
-    </a>
-    <a href="{{ url_for('manage_categories') }}"
-       class="admin-btn block w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-left text-slate-800 hover:bg-slate-100 text-base">
-      6. カテゴリ管理
+    <a href="{{ url_for('manage_staffs') }}" class="admin-menu-item">
+      <span class="admin-menu-item__number">2</span>
+      <span class="admin-menu-item__text">スタッフ管理</span>
     </a>
   </div>
 
-  <div class="admin-card bg-white rounded-2xl shadow-sm p-4 space-y-3">
-    <h2 class="text-lg font-bold">📁 レポート</h2>
-    <a href="{{ url_for('view_logs') }}"
-       class="admin-btn block w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-left text-slate-800 hover:bg-slate-100 text-base">
-      ログを見る
+  <!-- カテゴリ管理 -->
+  <div class="card p-6 space-y-3">
+    <h2 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+      <span class="text-2xl">📁</span> カテゴリ管理
+    </h2>
+    <a href="{{ url_for('add_category') }}" class="admin-menu-item">
+      <span class="admin-menu-item__number">1</span>
+      <span class="admin-menu-item__text">カテゴリ登録</span>
+    </a>
+    <a href="{{ url_for('manage_categories') }}" class="admin-menu-item">
+      <span class="admin-menu-item__number">2</span>
+      <span class="admin-menu-item__text">カテゴリ管理</span>
+    </a>
+  </div>
+
+  <!-- レポート -->
+  <div class="card p-6 space-y-3">
+    <h2 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+      <span class="text-2xl">📊</span> レポート
+    </h2>
+    <a href="{{ url_for('view_logs') }}" class="admin-menu-item">
+      <span class="admin-menu-item__number">1</span>
+      <span class="admin-menu-item__text">ログを見る</span>
     </a>
   </div>
 </div>
 
-<div class="c-footer-nav w-full flex flex-col gap-4 mt-8">
-  <a href="{{ url_for('index') }}"
-     class="c-menu-btn c-menu-btn--sub flex items-center justify-center gap-3 w-full py-4 text-xl font-bold rounded-2xl bg-slate-100 text-slate-900 shadow-sm active:translate-y-1 active:shadow-none transition">
+<!-- フッターナビゲーション -->
+<div class="c-footer-nav w-full flex flex-col gap-4 mt-10">
+  <a href="{{ url_for('index') }}" class="btn-footer-sub">
     トップページに戻る
   </a>
 </div>
+
 {% endblock %}

@@ -3,62 +3,63 @@
 {% block title %}数量入力 - 喫茶店管理{% endblock %}
 
 {% block content %}
-    <p class="text-xl text-amber-800 mb-2 text-center">{{ title }}</p>
-    <div class="product-name text-3xl font-bold text-center mb-1">{{ product['name'] }}</div>
-    <div class="current-info text-center text-base text-slate-600 mb-4">
-      現在：{{ product['current_stock'] }}{{ product['unit'] }}
+    <div class="content-wrapper">
+        <div class="page-header page-header--{{ mode }}">
+            <p class="page-header__mode">{{ title }}</p>
+            <h1 class="page-header__product">{{ product['name'] }}</h1>
+            {% if product['origin'] %}
+                <p class="page-header__origin">（{{ product['origin'] }}）</p>
+            {% endif %}
+            <p class="page-header__stock">現在の在庫数： {{ product['current_stock'] }}{{ product['unit'] }}</p>
+        </div>
+
+        <div class="input-card">
+            <form action="/{{ mode }}/execute/{{ product['id'] }}" method="POST">
+                <p class="stepper-label">
+                  {% if mode == 'arrival' %}
+                      何個買ってきましたか？
+                  {% elif mode == 'waste' %}
+                      何個捨てますか？
+                  {% else %}
+                      何個使いましたか？
+                  {% endif %}
+                </p>
+
+                <div class="stepper">
+                  <button type="button" class="btn-stepper" onclick="changeQty(-1)" aria-label="数量を減らす">－</button>
+                  <input type="number" name="quantity" id="qty" class="qty-display"
+                         value="1" min="1" step="1" readonly aria-label="数量">
+                  <button type="button" class="btn-stepper" onclick="changeQty(1)" aria-label="数量を増やす">＋</button>
+                </div>
+
+                <button type="submit" class="btn-commit">
+                    {% if mode == 'arrival' %}
+                        在庫に追加する
+                    {% elif mode == 'waste' %}
+                        廃棄を記録する
+                    {% else %}
+                        使用を記録する
+                    {% endif %}
+                </button>
+            </form>
+        </div>
     </div>
 
-    <div class="input-card mt-6 w-full bg-white rounded-2xl shadow-md p-6 space-y-4">
-        <form action="/{{ mode }}/execute/{{ product['id'] }}" method="POST">
-            <div class="stepper flex items-center justify-center gap-2 mb-4">
-                <button type="button" class="step-btn btn-minus w-12 h-12 flex items-center justify-center rounded-full bg-slate-100 text-2xl font-bold border border-slate-300 active:translate-y-0.5 active:shadow-inner" onclick="changeQty(-1)">－</button>
-                <input type="number" name="quantity" id="qty"
-                       class="qty-display w-24 text-center text-3xl border border-slate-300 rounded-xl py-1 mx-2 bg-white"
-                       value="1" min="1" step="1" readonly>
-                <button type="button" class="step-btn btn-plus w-12 h-12 flex items-center justify-center rounded-full bg-slate-100 text-2xl font-bold border border-slate-300 active:translate-y-0.5 active:shadow-inner" onclick="changeQty(1)">＋</button>
-            </div>
-            
-            <p class="text-center text-xl">
-              {% if mode == 'arrival' %}
-                  買ってきた数
-              {% elif mode == 'waste' %}
-                  廃棄する数
-              {% else %}
-                  使い切った数
-              {% endif %}
-              を選んでください
-            </p>
-
-            <button type="submit"
-                    class="submit-btn w-full mt-4 rounded-2xl bg-amber-600 text-white font-bold py-3 text-xl shadow-md active:translate-y-0.5 active:shadow-none transition">
-                {% if mode == 'arrival' %}
-                    在庫に追加する
-                {% elif mode == 'waste' %}
-                    廃棄する
-                {% else %}
-                    これで使い切った！
-                {% endif %}
-            </button>
-        </form>
-    </div>
-    <div class="c-footer-nav w-full flex flex-col gap-4 mt-8">
-      <a href="javascript:history.back()"
-         class="c-menu-btn c-menu-btn--sub flex items-center justify-center gap-3 w-full py-4 text-2xl font-bold rounded-2xl bg-slate-100 text-slate-900 shadow-sm active:translate-y-1 active:shadow-none transition">
+    <div class="c-footer-nav">
+      <a href="javascript:history.back()" class="btn-footer-sub">
         前の画面に戻る
       </a>
     </div>
 {% endblock %}
 
 {% block scripts %}
-    <script>
-        // ボタンで数字を増減させるスクリプトですわ
-        function changeQty(diff) {
-            const qtyInput = document.getElementById('qty');
-            let currentVal = parseFloat(qtyInput.value);
-            let newVal = currentVal + diff;
-            if (newVal < 1) newVal = 1; // 1以下にはならないようにする
-            qtyInput.value = newVal.toFixed(1).replace(/\.0$/, ''); // 小数点第一位まで。切りのいい時は整数に
-        }
-    </script>
+<script>
+  function changeQty(diff) {
+    const qtyInput = document.getElementById('qty');
+    let currentVal = parseFloat(qtyInput.value);
+    let newVal = currentVal + diff;
+    if (newVal < 1) newVal = 1;
+    qtyInput.value = newVal.toFixed(1).replace(/\.0$/, '');
+  }
+</script>
 {% endblock %}

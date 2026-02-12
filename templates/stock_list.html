@@ -1,56 +1,122 @@
-{% extends "base.html" %}
+ｖ{% extends "base.html" %}
 
 {% block title %}在庫一覧 - 喫茶店在庫管理{% endblock %}
 
-{% block body_class %}p-stock{% endblock %}
-
 {% block content %}
-    <h1 class="text-2xl font-bold mb-4">📦 現在の在庫状況</h1>
 
-    <table class="w-full mt-2 border-collapse bg-white rounded-2xl overflow-hidden shadow-sm text-base">
-        <thead>
-            <tr>
-                <th class="bg-slate-100 text-left text-sm font-semibold text-slate-700 border-b border-slate-200 px-4 py-2">
-                    商品名
-                </th>
-                <th class="bg-slate-100 text-left text-sm font-semibold text-slate-700 border-b border-slate-200 px-4 py-2">
-                    現在の在庫
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for p in products %}
-            {% set is_out = p['current_stock'] <= 0 %}
-            {% set is_low = p['current_stock'] <= p['reorder_level'] %}
-            <tr class="border-b last:border-0 {{ 'bg-red-50' if is_out else ('bg-amber-50' if is_low else 'bg-white') }}">
-                <td class="px-4 py-3 align-top">
-                    <strong class="text-base">{{ p['name'] }}</strong>
-                    {% if p['origin'] %}<br><small class="text-slate-500">({{ p['origin'] }})</small>{% endif %}
-                    <br>
-                    <a href="{{ url_for('edit_product', product_id=p['id']) }}"
-                       class="edit-link inline-block mt-2 text-sm text-amber-700 underline">
-                        情報を直す
-                    </a>
-                </td>
-                <td class="px-4 py-3 align-top">
-                    <span class="text-xl font-bold">{{ p['current_stock'] }}</span> {{ p['unit'] }}
-                    {% if is_out %}
-                        <span class="alert-text ml-2 text-sm text-red-700 font-semibold">🚫 在庫切れですわ！</span>
-                    {% elif is_low %}
-                        <span class="alert-text ml-2 text-sm text-amber-700 font-semibold">⚠️ 買い出しが必要です</span>
-                    {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <div class="c-footer-nav w-full flex flex-col gap-4 mt-8">
-      <a href="{{ url_for('index') }}"
-         class="c-menu-btn c-menu-btn--sub flex items-center justify-center gap-3 w-full py-4 text-xl font-bold rounded-2xl bg-slate-100 text-slate-900 shadow-sm active:translate-y-1 active:shadow-none transition">
-        トップページに戻る
-      </a>
+<!-- ページタイトル -->
+<div class="p-chef-message flex items-end justify-center gap-4 mb-6">
+  <div class="p-chef-message__icon">
+    <span class="text-5xl">📦</span>
+  </div>
+  <div class="p-chef-message__bubble relative bg-white border-4 border-amber-900 rounded-2xl px-5 py-3 shadow-md">
+    <h1 class="text-3xl font-bold text-amber-900">在庫一覧</h1>
+  </div>
+</div>
+
+<!-- 在庫一覧カード -->
+<div class="w-full space-y-4">
+  {% for p in products %}
+  {% set is_out = p['current_stock'] <= 0 %}
+  {% set is_low = p['current_stock'] > 0 and p['current_stock'] <= p['reorder_level'] %}
+  
+  <!-- 商品カード -->
+  <div class="input-card {% if is_out %}bg-rose-50 border-rose-300{% elif is_low %}bg-amber-50 border-amber-300{% endif %}">
+    <div class="flex gap-4">
+      
+      <!-- 商品画像 -->
+      <div class="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0 bg-slate-100 border-2 border-slate-200">
+        {% if p['image_path'] %}
+          <img src="{{ url_for('static', filename=p['image_path']) }}" 
+               alt="{{ p['name'] }}" 
+               class="w-full h-full object-cover">
+        {% else %}
+          <div class="w-full h-full flex items-center justify-center text-4xl">
+            {% if 'コーヒー' in p['name'] %}☕
+            {% elif '牛乳' in p['name'] or 'ミルク' in p['name'] %}🥛
+            {% elif 'クリーム' in p['name'] %}🍶
+            {% elif '砂糖' in p['name'] %}🧂
+            {% elif '豆' in p['name'] %}🫘
+            {% elif 'チョコ' in p['name'] %}🍫
+            {% elif '茶' in p['name'] %}🍵
+            {% else %}📦
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- 商品情報 -->
+      <div class="flex-1">
+        <!-- 商品名 + 産地 -->
+        <div class="mb-3">
+          <h3 class="text-xl font-bold text-slate-900">
+            {{ p['name'] }}
+          </h3>
+          {% if p['origin'] %}
+          <p class="text-sm text-slate-500 mt-1">
+            産地: {{ p['origin'] }}
+          </p>
+          {% endif %}
+        </div>
+
+        <!-- 在庫数 + アラート -->
+        <div class="flex items-baseline gap-3">
+          <div>
+            <span class="text-3xl font-bold text-slate-900">
+              {{ p['current_stock'] }}
+            </span>
+            <span class="text-lg text-slate-600 ml-1">
+              {{ p['unit'] }}
+            </span>
+          </div>
+
+          {% if is_out %}
+          <div class="flex items-center gap-1 text-rose-700 font-bold">
+            <span class="text-xl">🚫</span>
+            <span class="text-sm">在庫切れです！</span>
+          </div>
+          {% elif is_low %}
+          <div class="flex items-center gap-1 text-amber-700 font-bold">
+            <span class="text-xl">⚠️</span>
+            <span class="text-sm">補充が必要です</span>
+          </div>
+          {% else %}
+          <div class="flex items-center gap-1 text-green-700 font-semibold">
+            <span class="text-xl">✅</span>
+            <span class="text-sm">在庫あり</span>
+          </div>
+          {% endif %}
+        </div>
+
+        <!-- 発注点の情報 -->
+        <p class="text-sm text-slate-500 mt-2">
+          発注点: {{ p['reorder_level'] }} {{ p['unit'] }}
+        </p>
+      </div>
     </div>
-    <p class="mt-8 text-sm text-slate-500">
-        ※作業（入庫や出庫）をする場合は、メニュー画面から各ボタンを選んでくださいね。
-    </p>
+  </div>
+
+  {% else %}
+  <!-- 商品がない場合 -->
+  <div class="input-card text-center py-8">
+    <div class="text-5xl mb-4">📭</div>
+    <p class="text-lg text-slate-500">まだ商品が登録されていません</p>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- 注意書き -->
+<div class="bg-blue-50 border-2 border-blue-200 rounded-2xl px-5 py-4 mt-6">
+  <p class="text-sm text-blue-900">
+    💡 <strong>入庫・出庫作業</strong>をする場合は、トップページから各ボタンを選んでください。
+  </p>
+</div>
+
+<!-- フッターナビゲーション -->
+<div class="c-footer-nav w-full flex flex-col gap-4 mt-10">
+  <a href="{{ url_for('index') }}" class="btn-footer-sub">
+    トップページに戻る
+  </a>
+</div>
+
 {% endblock %}

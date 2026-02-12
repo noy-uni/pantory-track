@@ -2,9 +2,6 @@
 
 {% block title %}{{ title }} - 喫茶店管理{% endblock %}
 
-{% block head %}
-F{% endblock %}
-
 {% block content %}
 
 <div class="p-chef-message flex items-end justify-center gap-4 mb-6">
@@ -15,54 +12,59 @@ F{% endblock %}
     <h1 class="text-3xl font-bold text-amber-900">{{ title }}</h1>
   </div>
 </div>
-  {% with messages = get_flashed_messages() %}
-  {% if messages %}
-    {% for message in messages %}
-    <div class="bg-yellow-300 text-slate-800 px-4 py-3 my-3 mx-auto rounded-xl font-bold max-w-[90%] shadow-md border-l-8 border-yellow-500">
-      ⚠️ {{ message }}
+
+<p class="sub-title text-center text-xl text-amber-700 mb-4">商品を選んでください</p>
+
+<!-- カードコンテナ：2列グリッド -->
+<div class="card-container grid grid-cols-2 gap-4 w-full">
+  {% for product in products %}
+  <a href="{{ url_for('entry_quantity', mode=mode, product_id=product['id']) }}" 
+     class="product-card product-card--medium
+            {% if product['current_stock'] <= 0 %}
+                stock-zero
+            {% elif product['reorder_level'] is not none and product['current_stock'] <= product['reorder_level'] %}
+                stock-low
+            {% endif %}">
+
+    <!-- 画像 -->
+    <div class="product-card__icon product-card__icon--medium">
+      {% if product['image_path'] %}
+        <img src="{{ url_for('static', filename='products/' + product['image_path']) }}" 
+             alt="{{ product['name'] }}" 
+             class="product-card__img">
+      {% else %}
+        <span class="product-card__emoji">
+          {% if mode == 'arrival' %}✨{% elif mode == 'waste' %}🥀{% else %}☕{% endif %}
+        </span>
+      {% endif %}
     </div>
-    {% endfor %}
-  {% endif %}
-  {% endwith %}
 
-  <p class="sub-title text-center text-xl text-amber-700 mb-4">商品を選んでください</p>
-
-  <div class="card-container grid grid-cols-2 sm:grid-cols-3 gap-4 w-full">
-    {% for product in products %}
-    <a href="{{ url_for('entry_quantity', mode=mode, product_id=product['id']) }}" class="product-card 
-                {% if product['current_stock'] <= 0 %}
-                    stock-zero
-                {% elif product['reorder_level'] is not none and product['current_stock'] <= product['reorder_level'] %}
-                    stock-low
-                {% endif %} block bg-white border-2 border-black/10 rounded-2xl p-4 text-center text-slate-800 shadow-sm transition active:scale-95 active:brightness-90 flex flex-col items-center space-y-2 border-l-8 border-slate-300">
-
-                <div class="icon-placeholder w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center text-3xl mb-3 shadow-inner">
-                  {% if product['image_path'] %}
-                    {# 画像が登録されている場合は画像を表示 #}
-                    <img src="{{ url_for('static', filename='products/' + product['image_path']) }}" 
-                    alt="{{ product['name'] }}" 
-                    style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">                  {% else %}
-                    {# 画像がない場合はこれまでの絵文字を表示 #}
-                    {% if mode == 'arrival' %}✨{% elif mode == 'waste' %}🥀{% else %}☕{% endif %}
-                  {% endif %}
-                </div>
-
-      <div class="product-info space-y-2">
-        <div class="product-name font-bold text-xl leading-tight">{{ product['name'] }}</div>
-        <div class="current-stock text-base bg-slate-100 px-3 py-1 rounded-full text-slate-600">
-          {{ product['current_stock'] }} {{ product['unit'] }}
-          {% if product['current_stock'] <= 0 %} <br><small style="color: #d32f2f;">(在庫なし)</small>
-            {% endif %}
-        </div>
+    <!-- 商品情報 -->
+    <div class="product-info space-y-2">
+      <!-- 商品名 + origin -->
+      <div class="product-name-wrapper">
+        <div class="product-name font-bold text-base leading-tight">{{ product['name'] }}</div>
+        {% if product['origin'] %}
+          <div class="product-origin text-xs text-gray-600">{{ product['origin'] }}</div>
+        {% endif %}
       </div>
-    </a>
-    {% endfor %}
-  </div>
+      
+      <!-- 在庫数 -->
+      <div class="badge text-xs">
+        {{ product['current_stock'] }} {{ product['unit'] }}
+        {% if product['current_stock'] <= 0 %}
+          <br><small class="text-rose-600">(在庫なし)</small>
+        {% endif %}
+      </div>
+    </div>
+  </a>
+  {% endfor %}
+</div>
 
-  <div class="c-footer-nav w-full flex flex-col gap-4 mt-10">
-    <a href="{{ url_for('index') }}"
-       class="c-menu-btn c-menu-btn--sub flex items-center justify-center gap-3 w-full py-4 text-xl font-bold rounded-2xl bg-slate-100 text-slate-900 shadow-sm active:translate-y-1 active:shadow-none transition">
-      トップページに戻る
-    </a>
-  </div>
+<div class="c-footer-nav w-full flex flex-col gap-4 mt-10">
+  <a href="{{ url_for('index') }}" class="btn-footer-sub">
+    トップページに戻る
+  </a>
+</div>
+
 {% endblock %}
