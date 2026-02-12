@@ -6,7 +6,7 @@
 
 {% block content %}
   <h1 class="p-shopping__title">🛒 お買い物リスト</h1>
-  <p class="p-shopping__lead">マスター、以下の商品の在庫が少なくなっていますわ。</p>
+  <p class="p-shopping__lead">以下の商品の在庫が少なくなっています。</p>
 
   {% if items %}
   <div class="p-shopping__list">
@@ -49,15 +49,16 @@
   <div class="c-alert"
     style="background: var(--color-sub-btn); border-color: var(--color-sub-btn-dark); text-align: center; padding: var(--size-48);">
     <p style="font-size: var(--size-64); margin: 0;">☕</p>
-    <p class="c-alert__title" style="margin-top: var(--size-16);">今すぐ買う必要があるものはありませんわ。</p>
+    <p class="c-alert__title" style="margin-top: var(--size-16);">今すぐ買う必要があるものはありません。</p>
   </div>
   {% endif %}
 
   <div class="c-footer-nav">
     <a href="{{ url_for('index') }}" class="c-menu-btn c-menu-btn--sub">
-      🔙 在庫一覧に戻る
+      トップページに戻る
     </a>
   </div>
+  
 {% endblock %}
 
 {% block scripts %}

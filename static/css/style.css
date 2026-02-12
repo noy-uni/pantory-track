@@ -64,7 +64,7 @@ body {
 
   .l-main {
     width: 100%;
-    max-width: 400px;
+    max-width: 480px;
     margin-inline: auto;
     margin-top: var(--size-64);
     display: flex;
@@ -93,7 +93,60 @@ body {
   flex-shrink: 0;       /* ボタンが狭くなってもアイコンが潰れないようにします */
 }
 
+/* シェフと吹き出しを横に並べる */
+.p-chef-message {
+  display: flex;
+  align-items: flex-end; /* アイコンの足元に吹き出しを合わせる */
+  justify-content: center;
+  margin-bottom: var(--size-24);
+  gap: 15px;
+}
 
+/* アイコンのサイズ調整 */
+.p-chef-message__icon svg {
+  width: auto !important;;
+  height: 60px !important;;
+}
+
+/* 吹き出し本体 */
+.p-chef-message__bubble {
+  position: relative;
+  background-color: #fff;
+  border: 3px solid #5d4037; /* ヘッダーと同じ茶色系 */
+  border-radius: 15px;
+  padding: 10px 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.p-chef-message__bubble h1 {
+  margin: 0;
+  font-size: var(--size-32);
+  color: #5d4037;
+}
+
+/* 吹き出しの「しっぽ（三角形）」 */
+.p-chef-message__bubble::after {
+  content: "";
+  position: absolute;
+  left: -15px; /* 左側に飛び出させる */
+  bottom: 10px;
+  border-style: solid;
+  border-width: 10px 15px 10px 0;
+  border-color: transparent #fff transparent transparent; /* 中身と同じ白 */
+  z-index: 2;
+}
+
+/* 吹き出しのしっぽの「ふちどり」 */
+.p-chef-message__bubble::before {
+  content: "";
+  position: absolute;
+  left: -19px;
+  bottom: 9px;
+  border-style: solid;
+  border-width: 11px 16px 11px 0;
+  border-color: transparent #5d4037 transparent transparent; /* ふちと同じ茶色 */
+  z-index: 1;
+}
 
 /* --- Block: c-alert (Component Alert) --- */
 .c-alert {

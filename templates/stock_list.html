@@ -6,10 +6,6 @@
 
 {% block content %}
     <h1>📦 現在の在庫状況</h1>
-    
-    <div style="margin-bottom: 20px;">
-        <a href="{{ url_for('index') }}" class="back-link">← メニューに戻る</a>
-    </div>
 
     <table>
         <thead>
@@ -41,7 +37,11 @@
             {% endfor %}
         </tbody>
     </table>
-
+    <div class="c-footer-nav">
+      <a href="{{ url_for('index') }}" class="c-menu-btn c-menu-btn--sub">
+        トップページに戻る
+      </a>
+    </div>
     <p style="margin-top: 30px; font-size: 18px; color: #888;">
         ※作業（入庫や出庫）をする場合は、メニュー画面から各ボタンを選んでくださいね。
     </p>

@@ -98,8 +98,14 @@
 
 {% block content %}
 
-  <h1>{{ title }}</h1>
-
+<div class="p-chef-message">
+  <div class="p-chef-message__icon">
+     {% include 'icons/icon_chef.html' %}
+  </div>
+  <div class="p-chef-message__bubble">
+    <h1>{{ title }}</h1>
+  </div>
+</div>
   {% with messages = get_flashed_messages() %}
   {% if messages %}
     {% for message in messages %}
@@ -111,7 +117,7 @@
   {% endif %}
   {% endwith %}
 
-  <p class="sub-title">商品を選んでくださいな</p>
+  <p class="sub-title">商品を選んでください</p>
 
   <div class="card-container">
     {% for product in products %}
@@ -122,9 +128,16 @@
                     stock-low
                 {% endif %}">
 
-      <div class="icon-placeholder">
-        {% if mode == 'arrival' %}✨{% elif mode == 'waste' %}🥀{% else %}☕{% endif %}
-      </div>
+                <div class="icon-placeholder">
+                  {% if product['image_path'] %}
+                    {# 画像が登録されている場合は画像を表示 #}
+                    <img src="{{ url_for('static', filename='products/' + product['image_path']) }}" 
+                    alt="{{ product['name'] }}" 
+                    style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">                  {% else %}
+                    {# 画像がない場合はこれまでの絵文字を表示 #}
+                    {% if mode == 'arrival' %}✨{% elif mode == 'waste' %}🥀{% else %}☕{% endif %}
+                  {% endif %}
+                </div>
 
       <div class="product-info">
         <div class="product-name">{{ product['name'] }}</div>
@@ -138,6 +151,9 @@
     {% endfor %}
   </div>
 
-  <a href="{{ url_for('index') }}" class="back-link">やめる（戻る）</a>
-
+  <div class="c-footer-nav">
+    <a href="{{ url_for('index') }}" class="c-menu-btn c-menu-btn--sub">
+      トップページに戻る
+    </a>
+  </div>
 {% endblock %}

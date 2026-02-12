@@ -30,7 +30,9 @@
         <button type="submit" class="btn-submit">この内容で登録する</button>
     </form>
     <hr>
-    <a href="{{ url_for('index') }}" style="display: block; text-align: center; color: #666;">
-        一覧に戻る
-    </a>
+    <div class="c-footer-nav">
+      <a href="{{ url_for('index') }}" class="c-menu-btn c-menu-btn--sub">
+        トップページに戻る
+      </a>
+    </div>
 {% endblock %}

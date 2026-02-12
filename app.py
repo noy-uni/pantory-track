@@ -252,7 +252,7 @@ def arrival_select():
         "choose_product.html",
         products=products,
         mode="arrival",
-        title="✨ なにを買ってきた？",
+        title="何を買いましたか？",
         bg_color="#fff3e0",
     )  # 暖かいオレンジ
 
@@ -269,7 +269,7 @@ def departure_select():
         "choose_product.html",
         products=products,
         mode="departure",
-        title="☕ なにを使い切った？",
+        title="なにを使い切りましたか？",
         bg_color="#e3f2fd",
     )  # スッキリしたブルー
 

@@ -4,7 +4,11 @@
 
 {% block content %}
   <h1>📋 入出庫の記録</h1>
-  <a href="{{ url_for('index') }}">一覧に戻る</a>
+  <div class="c-footer-nav">
+    <a href="{{ url_for('admin_menu') }}" class="c-menu-btn c-menu-btn--sub">
+      管理メニューに戻る
+    </a>
+  </div>
   <table>
     <tr>
       <th>日時</th>
@@ -23,4 +27,9 @@
     </tr>
     {% endfor %}
   </table>
+  <div class="c-footer-nav">
+    <a href="{{ url_for('admin_menu') }}" class="c-menu-btn c-menu-btn--sub">
+      管理メニューに戻る
+    </a>
+  </div>
 {% endblock %}
