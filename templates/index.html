@@ -1,45 +1,50 @@
 {% extends "base.html" %}
 
 {% block title %}ホーム - 喫茶店在庫管理{% endblock %}
-{% block header_title %}ホーム{% endblock %}
+{% block header_title %}{% endblock %}
 
 {% block content %}
 
-<h1 class="p-dashboard__title text-4xl font-bold text-center mb-10">
-    すなばcafe 在庫管理
-</h1>
-
 {% if low_stock_count > 0 %}
-<a href="{{ url_for('shopping_list') }}" class="card-alert-main">
-    <div class="c-alert__title font-bold text-3xl">🛒 お買い物があります</div>
-    <div class="c-alert__text text-xl">{{ low_stock_count }}件の在庫が足りません</div>
+<a href="{{ url_for('shopping_list') }}" class="card-alert-main w-full">
+  <div class="c-alert__title font-bold text-2xl mb-3">🛒 お買い物に行きましょう。</div>
+  <div class="c-alert__text text-xl pl-4">{{ low_stock_count }}件の在庫が残りわずかです。</div>
 </a>
 {% endif %}
 
-<nav class="p-dashboard__nav w-full space-y-4">
+<div class="p-chat-message">
+  <div class="p-chat-message__icon">
+    <img src="{{ url_for('static', filename='icons/chat-icon.png') }}" alt="シェフ">
+  </div>
+  <div class="p-chat-message__bubble">
+    <h1 class="text-2xl font-bold text-amber-900">今日はどんなことをしましたか？</h1>
+  </div>
+</div>
+
+<nav class="p-dashboard__nav w-full space-y-8">
   <a href="{{ url_for('arrival_select') }}" class="btn-nav-arrival">
-      {% include 'icons/icon_shopping-cart.html' %} 買ってきた
+    {% include 'icons/icon_shopping-cart.html' %} 買ってきた
   </a>
 
   <a href="{{ url_for('departure_select') }}" class="btn-nav-departure">
-      {% include 'icons/icon_empty-box.html' %} 使い切った
+    {% include 'icons/icon_empty-box.html' %} 使い切った
   </a>
 
   <a href="{{ url_for('waste_select') }}" class="btn-nav-waste">
-      {% include 'icons/icon_trash-can.html' %} 廃棄した
+    {% include 'icons/icon_trash-can.html' %} 廃棄した
   </a>
 </nav>
 
 <div class="c-footer-nav w-full flex flex-col gap-4 mt-12">
-    <a href="{{ url_for('shopping_list') }}" class="btn-footer-sub">
-        🛒 お買い物リスト
-    </a>
-    <a href="{{ url_for('stock_list') }}" class="btn-footer-sub">
-        📦 在庫をすべて見る
-    </a>
-    <a href="{{ url_for('admin_menu') }}" class="btn-footer-admin">
-        ⚙️ システム管理
-    </a>
+  <a href="{{ url_for('stock_list') }}" class="btn-footer-sub">
+    在庫をすべて見る
+  </a>
+  <a href="{{ url_for('shopping_list') }}" class="btn-footer-sub">
+    お買い物リストを見る
+  </a>
+  <a href="{{ url_for('admin_menu') }}" class="btn-footer-admin">
+    システムを管理する
+  </a>
 </div>
 
 {% endblock %}

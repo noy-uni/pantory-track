@@ -5,18 +5,17 @@
 {% block content %}
 
 <!-- ページタイトル -->
-<div class="p-chef-message flex items-end justify-center gap-4 mb-6">
-  <div class="p-chef-message__icon">
-    <span class="text-5xl">📦</span>
+<div class="p-chat-message">
+  <div class="p-chat-message__icon">
+    <img src="{{ url_for('static', filename='icons/chat-icon.png') }}" alt="シェフ">
   </div>
-  <div class="p-chef-message__bubble relative bg-white border-4 border-amber-900 rounded-2xl px-5 py-3 shadow-md">
-    <h1 class="text-3xl font-bold text-amber-900">商品を管理できます</h1>
+  <div class="p-chat-message__bubble">
+    <h1 class="text-2xl font-bold text-amber-900">商品の管理をしましょう</h1>
   </div>
 </div>
-
 <!-- 新規登録ボタン -->
 <div class="w-full mb-6">
-  <a href="{{ url_for('add_product') }}" class="btn-commit">
+  <a href="{{ url_for('add_product') }}" class="btn-success">
     ＋ 新しい商品を登録する
   </a>
 </div>

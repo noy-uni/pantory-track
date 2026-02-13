@@ -4,15 +4,15 @@
 
 {% block content %}
 
-<!-- ページタイトル -->
-<div class="p-chef-message flex items-end justify-center gap-4 mb-6">
-  <div class="p-chef-message__icon">
-    <span class="text-5xl">⚙️</span>
+<div class="p-chat-message">
+  <div class="p-chat-message__icon">
+    <img src="{{ url_for('static', filename='icons/chat-icon.png') }}" alt="オペレーター">
   </div>
-  <div class="p-chef-message__bubble relative bg-white border-4 border-amber-900 rounded-2xl px-5 py-3 shadow-md">
-    <h1 class="text-3xl font-bold text-amber-900">システムの登録や管理を行いますか？</h1>
+  <div class="p-chat-message__bubble">
+    <h1 class="text-2xl font-bold text-amber-900">システムの登録や管理を行いますか？</h1>
   </div>
 </div>
+
 
 <!-- 管理メニューグリッド -->
 <div class="admin-grid grid grid-cols-1 gap-6 w-full mt-6">
@@ -76,7 +76,7 @@
 
 <!-- フッターナビゲーション -->
 <div class="c-footer-nav w-full flex flex-col gap-4 mt-10">
-  <a href="{{ url_for('index') }}" class="btn-footer-sub">
+  <a href="{{ url_for('index') }}" class="btn-back">
     トップページに戻る
   </a>
 </div>

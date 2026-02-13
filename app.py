@@ -424,7 +424,7 @@ def execute_stock_update(mode, product_id):
                 # 発注点を下回ったら警告
                 if new_stock <= product["reorder_level"]:
                     flash(
-                        f"「{product['name']}」の在庫が残りわずかです。お買い物リストに追加しましたわ！"
+                        f"「{product['name']}」の在庫が残りわずかです。お買い物リストに追加しました！"
                     )
 
             # 在庫を更新

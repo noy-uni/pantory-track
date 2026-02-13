@@ -1,0 +1,54 @@
+/* シンプル */
+:root {
+  --noborder-chat-item-distance: 8px;/* アイコン画像〜吹き出し間の距離, 0以上の数値のみ可(吹き出し角分は自動で空きます) */
+
+  --noborder-chat-icon-radius: 50%;/* アイコン円形, 四角形角丸は px で指定 */
+  --noborder-chat-icon-bgcolor: rgb(240,240,240);/* アイコン背景色(透過PNGへの配慮) */
+  --noborder-chat-icon-bgimage-left: url(画像URL);/* 左画像 */
+  --noborder-chat-icon-bgimage-right: url(画像URL);/* 右画像 */
+
+  --noborder-chat-text-radius: 6px;/* テキスト角丸 */
+  --noborder-chat-text-bgcolor: rgb(240,240,240);/* テキスト背景色 */
+  --noborder-chat-text-color: rgb(51,51,51);/* テキスト文字色 */
+
+  --noborder-chat-triangle-size: 20px;/* 吹き出し角大きさ */
+  --noborder-chat-triangle-position-top: 15px;/* 吹き出し角位置(上から) */
+}
+
+.noborder__chat {
+  gap: 0 calc(var(--noborder-chat-item-distance) + calc(var(--noborder-chat-triangle-size) / 1.5));
+}
+
+.noborder__chat .chat__icon {
+  border-radius: var(--noborder-chat-icon-radius);
+  background-color: var(--noborder-chat-icon-bgcolor);
+  background-image: var(--noborder-chat-icon-bgimage-left);
+}
+
+.noborder__chat.chat__r .chat__icon {
+  background-image: var(--noborder-chat-icon-bgimage-right);
+}
+
+.noborder__chat .chat__text {
+  border-radius: var(--noborder-chat-text-radius);
+  background: var(--noborder-chat-text-bgcolor);
+  color: var(--noborder-chat-text-color);
+}
+
+.noborder__chat .chat__text::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: var(--noborder-chat-triangle-position-top);
+  right: calc(100% - 1px);
+  clip-path: polygon(100% 100%, 100% 0, 0 50%);
+  width: calc(var(--noborder-chat-triangle-size) / 1.5);
+  height: var(--noborder-chat-triangle-size);
+  background: var(--noborder-chat-text-bgcolor);
+}
+
+.noborder__chat.chat__r .chat__text::after {
+  right: auto;
+  left: calc(100% - 1px);
+  clip-path: polygon(100% 50%, 0 0, 0 100%);
+}

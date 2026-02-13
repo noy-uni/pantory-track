@@ -17,11 +17,11 @@
             <form action="/{{ mode }}/execute/{{ product['id'] }}" method="POST">
                 <p class="stepper-label">
                   {% if mode == 'arrival' %}
-                      何個買ってきましたか？
+                      いくつ買ってきましたか？
                   {% elif mode == 'waste' %}
-                      何個捨てますか？
+                      いくつ捨てますか？
                   {% else %}
-                      何個使いましたか？
+                      いくつ使いましたか？
                   {% endif %}
                 </p>
 
@@ -32,13 +32,13 @@
                   <button type="button" class="btn-stepper" onclick="changeQty(1)" aria-label="数量を増やす">＋</button>
                 </div>
 
-                <button type="submit" class="btn-commit">
+                <button type="submit" class="btn-success">
                     {% if mode == 'arrival' %}
                         在庫に追加する
                     {% elif mode == 'waste' %}
                         廃棄を記録する
                     {% else %}
-                        使用を記録する
+                        使用数を記録する
                     {% endif %}
                 </button>
             </form>

@@ -7,10 +7,16 @@
 {% block content %}
   <div class="content-wrapper">
     <div class="text-center mb-8">
-      <h1 class="text-3xl font-bold text-slate-800 mb-3">お買い物リスト</h1>
-      <p class="text-lg text-slate-600">
-        以下の商品の在庫が少なくなっています。
-      </p>
+      <h1 class="text-3xl font-bold text-slate-800 mb-3">お買い物メモ</h1>
+    </div>
+
+    <div class="p-chat-message">
+      <div class="p-chat-message__icon">
+        <img src="{{ url_for('static', filename='icons/chat-icon.png') }}" alt="シェフ">
+      </div>
+      <div class="p-chat-message__bubble">
+        <h1 class="text-xl font-bold text-amber-900">お買い物したらチェックをいれてください。</h1>
+      </div>
     </div>
 
     {% if items %}
@@ -43,7 +49,7 @@
         
         <!-- 確認ボタン（最初だけ表示） -->
         <button type="button" id="confirm-toggle-btn"
-                class="btn-arrival-confirm">
+                class="btn-success">
           このまま入庫登録する
         </button>
 
@@ -59,7 +65,7 @@
     
         <!-- 確定ボタン（確認後に表示） -->
         <button type="submit" id="submit-btn"
-                class="btn-commit hidden">
+                class="btn-success hidden">
           この内容で入庫を確定する
         </button>
       </form>

@@ -29,42 +29,41 @@
   
       /* 色バリエーション */
       .btn-sub {
-        @apply bg-slate-100 text-slate-900 border-b-slate-300;
+        @apply bg-slate-200 text-slate-900 border-b-slate-400;
       }
       .btn-arrival {
         @apply bg-orange-200 text-slate-900 shadow-md border-b-orange-400;
       }
-      .btn-departure {
+      /* .btn-departure {
         @apply bg-sky-200 text-slate-900 shadow-md border-b-sky-400;
-      }
-      .btn-waste {
+      } */
+      /* .btn-waste {
         @apply bg-rose-200 text-slate-900 shadow-md border-b-rose-400;
-      }
-      .btn-admin {
+      } */
+      /* .btn-admin {
         @apply bg-stone-400 text-slate-900 shadow-md border-b-stone-600;
       }
-  
-      /* よく使う組み合わせ（1クラスで完結） */
+   */
+     
+   /* よく使う組み合わせ（1クラスで完結） */
       .btn-nav-arrival {
-        @apply btn btn-xl btn-arrival mb-2 rounded-3xl;
+        @apply btn btn-xl mb-2 bg-orange-200 text-slate-900 shadow-md border-b-orange-400 transition active:scale-95 active:bg-orange-100 border-b-4 border-b-orange-300 active:border-b-2;
       }
       .btn-nav-departure {
-        @apply btn btn-xl btn-departure mb-2 rounded-3xl;
+        @apply btn btn-xl mb-2 bg-sky-200 text-slate-900 shadow-md border-b-sky-400 transition active:scale-95 active:bg-sky-100 border-b-4 border-b-sky-300 active:border-b-2;
       }
       .btn-nav-waste {
-        @apply btn btn-xl btn-waste mb-2 rounded-3xl;
+        @apply btn btn-xl mb-2 bg-rose-200 text-slate-900 shadow-md border-b-rose-400 transition active:scale-95 active:bg-rose-100 border-b-4 border-b-rose-300 active:border-b-2;
       }
   
       .btn-footer-sub {
-        @apply btn btn-lg btn-sub;
+        @apply btn btn-lg btn-sub mb-2 active:scale-95 active:bg-slate-100 border-b-4 border-b-slate-300 active:border-b-2;
+        /* @apply w-full rounded-2xl bg-emerald-600 text-white font-bold py-3 text-xl shadow-md active:translate-y-0.5 active:shadow-none transition border-b-4 border-b-emerald-800 active:border-b-2; */
       }
       .btn-footer-admin {
-        @apply btn btn-lg btn-admin;
+        @apply btn btn-lg bg-stone-400 shadow-md border-b-stone-600 active:scale-95 active:bg-stone-300 border-b-4 border-b-stone-500 active:border-b-2;
       }
-  
-      .btn-arrival-confirm {
-        @apply btn btn-lg btn-arrival rounded-3xl mb-4;
-      }
+ 
   
       .btn-primary {
         @apply w-full rounded-2xl bg-amber-600 text-white font-bold py-3 text-xl shadow-md active:translate-y-0.5 active:shadow-none transition border-b-4 border-b-amber-800 active:border-b-2;
@@ -75,7 +74,12 @@
       .btn-danger {
         @apply w-full rounded-2xl bg-rose-600 text-white font-bold py-3 text-base shadow-md active:translate-y-0.5 active:shadow-none transition border-b-4 border-b-rose-800 active:border-b-2;
       }
-  
+
+      /* 戻るボタン（GY） */
+      .btn-back {
+        @apply btn btn-lg btn-sub mb-2 active:scale-95 active:bg-slate-100 border-b-4 border-b-slate-300 active:border-b-2;
+      }
+        /* border-b-slate-300 */
       /* カード */
       .card {
         @apply bg-white rounded-2xl shadow-sm;
@@ -134,10 +138,41 @@
         @apply w-[50px] h-auto inline-block align-middle;
       }
 
-      /* シェフ吹き出しエリア */
-      .p-chef-message {
-        @apply flex items-end justify-center gap-4 mb-6;
-      }
+ /* シェフ吹き出しエリア */
+.p-chat-message {
+  @apply flex items-center gap-4 mb-8 w-full;
+}
+
+.p-chat-message__icon {
+  @apply flex-shrink-0;
+}
+
+.p-chat-message__icon img {
+  @apply w-16 h-16 rounded-full object-cover shadow-md ;
+}
+
+.p-chat-message__bubble {
+  @apply relative rounded-2xl px-5 py-3 shadow-md flex-1;
+  background: #fde68a;
+}
+
+.p-chat-message__bubble::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 12px 16px 12px 0;
+  border-color: transparent #fde68a transparent transparent;
+}
+
+/* ::after は削除（不要） */
+
+
+
 
       /* 入力フィールド共通 */
       .input-field {
@@ -149,10 +184,7 @@
         @apply block font-semibold mb-1 text-lg text-slate-800;
       }
 
-      /* 確定ボタン（緑） */
-      .btn-commit {
-        @apply w-full rounded-2xl bg-emerald-600 text-white font-bold py-3 text-xl shadow-md active:translate-y-0.5 active:shadow-none transition border-b-4 border-b-emerald-800 active:border-b-2;
-      }
+
 
       /* コンテンツラッパー（幅を統一） */
       .content-wrapper {
@@ -499,6 +531,7 @@
   @apply block;
 }
 
+
 /* レスポンシブ対応 */
 @media (max-width: 640px) {
   .shopping-checkbox {
@@ -521,6 +554,12 @@
   </style>
 
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  <!-- icons -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=settings" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=shopping_cart" />
 </head>
 
 <body class="min-h-screen bg-amber-50 text-slate-800 text-2xl font-sans"
@@ -535,17 +574,17 @@
   </header>
 
   <main class="w-full max-w-xl mx-auto mt-24 px-4 pb-8 flex flex-col items-center">
-    
+
     <!--  フラッシュメッセージを main 内に移動 -->
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
-      <div class="w-full mb-6">
-        {% for category, message in messages %}
-        <div class="card-alert-{{ category }}">
-          {{ message }}
-        </div>
-        {% endfor %}
+    <div class="w-full mb-6">
+      {% for category, message in messages %}
+      <div class="card-alert-{{ category }}">
+        {{ message }}
       </div>
+      {% endfor %}
+    </div>
     {% endif %}
     {% endwith %}
 
