@@ -12,48 +12,52 @@
     <h1 class="text-2xl font-bold text-amber-900">{{ title }}</h1>
   </div>
 </div>
-
-<p class="sub-title text-center text-xl text-amber-700 mb-4">商品を選んでください</p>
-
 <!-- カードコンテナ：2列グリッド -->
-<div class="card-container grid grid-cols-2 gap-4 w-full">
+<div class="grid grid-cols-2 gap-5 w-full">
   {% for product in products %}
   <a href="{{ url_for('entry_quantity', mode=mode, product_id=product['id']) }}" 
-     class="product-card product-card--medium
+     class="flex-col bg-white border-2 border-slate-200 rounded-2xl text-slate-800 shadow-sm transition active:scale-95 active:brightness-90 border-b-4 border-b-slate-300 overflow-hidden
+            min-height: 240px
+     
             {% if product['current_stock'] <= 0 %}
                 stock-zero
             {% elif product['reorder_level'] is not none and product['current_stock'] <= product['reorder_level'] %}
                 stock-low
             {% endif %}">
 
-    <!-- 画像 -->
-    <div class="product-card__icon product-card__icon--medium">
+    <!-- 画像エリア -->
+    <div>
       {% if product['image_path'] %}
         <img src="{{ url_for('static', filename='products/' + product['image_path']) }}" 
-             alt="{{ product['name'] }}" 
-             class="product-card__img">
+             alt="{{ product['name'] }}"
+             class="w-full h-full object-cover">
       {% else %}
-        <span class="product-card__emoji">
-          {% if mode == 'arrival' %}✨{% elif mode == 'waste' %}🥀{% else %}☕{% endif %}
-        </span>
+        <!-- emoji wrapper -->
+        <div class="w-full h-full flex items-center justify-center bg-slate-50">
+          <span class="text-5xl">
+            {% if mode == 'arrival' %}✨{% elif mode == 'waste' %}🥀{% else %}☕{% endif %}
+          </span>
+        </div>
       {% endif %}
     </div>
 
-    <!-- 商品情報 -->
-    <div class="product-info space-y-2">
-      <!-- 商品名 + origin -->
-      <div class="product-name-wrapper">
-        <div class="product-name font-bold text-base leading-tight">{{ product['name'] }}</div>
-        {% if product['origin'] %}
-          <div class="product-origin text-xs text-gray-600">{{ product['origin'] }}</div>
-        {% endif %}
-      </div>
+    <!-- ✅ 商品情報エリア -->
+    <div class="p-4 flex-1 flex flex-col gap-2">
+      <!-- 商品名 -->
+      <div class="font-bold text-xl text-slate-800 leading-tight flex justify-center">{{ product['name'] }}</div>
+      
+      <!-- 補足（原産地） -->
+      {% if product['origin'] %}
+        <div class="text-base text-slate-500 flex justify-center">（{{ product['origin'] }}）</div>
+      {% endif %}
       
       <!-- 在庫数 -->
-      <div class="badge text-s">
-        {{ product['current_stock'] }} {{ product['unit'] }}
+      <div class="mt-auto pt-2 border-t border-slate-500 flex items-baseline gap-2 justify-center">
+        <span class="text-base text-slate-600">在庫：</span>
+        <span class="text-2xl font-bold text-amber-600">{{ product['current_stock'] }}</span>
+        <span class="text-base text-slate-600">{{ product['unit'] }}</span>
         {% if product['current_stock'] <= 0 %}
-          <br><small class="text-rose-600">(在庫なし)</small>
+          <div class="ml-auto text-sm text-rose-600 font-bold justify-center"">在庫なし</div>
         {% endif %}
       </div>
     </div>
