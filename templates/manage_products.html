@@ -58,25 +58,23 @@
           <div class="text-base font-semibold text-slate-900">
             在庫: {{ p['current_stock'] }} {{ p['unit'] }}
           </div>
-          <div class="text-sm text-slate-500 mt-1">
+          <div class="text-base text-slate-500 mt-1">
             発注点: {{ p['reorder_level'] }} {{ p['unit'] }}
           </div>
         </td>
 
         <!-- 操作ボタン -->
         <td class="px-4 py-4 align-top">
-          <div class="flex flex-col gap-2">
-            <!-- 編集ボタン -->
+          <div class="flex flex-col gap-3">
             <a href="{{ url_for('edit_product', product_id=p['id']) }}"
-               class="btn-edit">
+               class="btn h-10 bg-amber-500 text-white border-b-amber-700 active:bg-amber-400 ">
               ✏️ 編集する
             </a>
             
-            <!-- 削除ボタン -->
             <form action="{{ url_for('delete_product', product_id=p['id']) }}" 
                   method="POST" 
-                  onsubmit="return confirm('{{ p['name'] }} を削除（非表示に）してもよろしいですか？');">
-              <button type="submit" class="btn-delete w-full">
+                  onsubmit="return confirm('{{ p['name'] }} を削除してもよろしいですか？');">
+              <button type="submit" class="btn bg-rose-600 text-white h-10 active:bg-rose-500 w-full">
                 🗑️ 削除する
               </button>
             </form>

@@ -519,14 +519,18 @@ def execute_bulk_arrival():
 def stock_list():
     try:
         with get_db_connection() as conn:
+            # 商品一覧を取得
             products = conn.execute("SELECT * FROM products WHERE is_active = 1").fetchall()
+            # カテゴリ一覧をデータベースから取得（←ここを追加しますわ）
+            categories = conn.execute("SELECT * FROM categories").fetchall()
         
-        return render_template("stock_list.html", products=products)
+        # テンプレートに categories も渡します
+        return render_template("stock_list.html", products=products, categories=categories)
         
     except sqlite3.Error as e:
         flash(f"データベースエラー: {str(e)}", "error")
-        return render_template("stock_list.html", products=[])
-
+        return render_template("stock_list.html", products=[], categories=[])
+        
 @app.route("/admin")
 def admin_menu():
     # 管理メニュー画面を表示するだけですわ
