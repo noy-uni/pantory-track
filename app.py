@@ -530,7 +530,7 @@ def stock_list():
     except sqlite3.Error as e:
         flash(f"データベースエラー: {str(e)}", "error")
         return render_template("stock_list.html", products=[], categories=[])
-        
+
 @app.route("/admin")
 def admin_menu():
     # 管理メニュー画面を表示するだけですわ
@@ -598,4 +598,4 @@ def manage_categories():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
